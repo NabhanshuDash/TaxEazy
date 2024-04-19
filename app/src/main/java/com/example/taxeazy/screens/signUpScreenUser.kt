@@ -48,6 +48,7 @@ fun SignUpScreenUser() {
                 value = username,
                 onValueChange = { username = it }
             )
+
             Spacer(modifier = Modifier.height(16.dp))
             EmailTextFieldComponent(
                 LabelValue = "Email",
