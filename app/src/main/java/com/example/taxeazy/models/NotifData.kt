@@ -1,6 +1,6 @@
 package com.example.taxeazy.models
 
-data class notifData(
+data class NotifData(
     val notifId: String,
     val msg: String
 )
