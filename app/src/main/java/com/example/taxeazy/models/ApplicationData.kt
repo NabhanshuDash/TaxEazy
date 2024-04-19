@@ -7,4 +7,5 @@ data class ApplicationData(
     val record: String,
     val payment: Boolean
 
+
 )
