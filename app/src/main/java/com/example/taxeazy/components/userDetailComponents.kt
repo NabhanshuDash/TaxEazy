@@ -29,7 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -62,7 +62,7 @@ fun TextComponent(value: String, fontStyletxt: FontStyle, fweight: FontWeight, s
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NormalTextFieldComponent(LabelValue: String, img: Painter) {
+fun NormalTextFieldComponent(LabelValue: String, img: ImageVector) {
     val textValue = remember {
         mutableStateOf("")
     }
@@ -84,14 +84,14 @@ fun NormalTextFieldComponent(LabelValue: String, img: Painter) {
             textValue.value = it
         },
         leadingIcon = {
-            Icon(painter = img, contentDescription = "")
+            Icon(imageVector = img, contentDescription = "")
         }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EmailTextFieldComponent(LabelValue: String, img: Painter) {
+fun EmailTextFieldComponent(LabelValue: String, img: ImageVector) {
     val textValue = remember {
         mutableStateOf("")
     }
@@ -115,14 +115,14 @@ fun EmailTextFieldComponent(LabelValue: String, img: Painter) {
             textValue.value = it
         },
         leadingIcon = {
-            Icon(painter = img, contentDescription = "")
+            Icon(imageVector = img, contentDescription = "")
         }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordTextFieldComponent(labelValue: String, img: Painter) {
+fun PasswordTextFieldComponent(labelValue: String, img: ImageVector) {
     val password = remember {
         mutableStateOf("")
     }
@@ -150,7 +150,7 @@ fun PasswordTextFieldComponent(labelValue: String, img: Painter) {
             password.value = it
         },
         leadingIcon = {
-            Icon(painter = img, contentDescription = "")
+            Icon(imageVector = img, contentDescription = "")
         },
         trailingIcon = {
             val iconImage = if (passwordVisible.value) {
