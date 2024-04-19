@@ -2,6 +2,7 @@ package com.example.taxeazy.models
 
 import android.location.Location
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import java.util.*
 
 data class UserData(
@@ -15,7 +16,8 @@ data class UserData(
     val applicationId: List<String> = listOf(),
     val personalStore: List<String> = listOf(),
     val notify: List<String> = listOf(),
-    val reported: List<String> = listOf()
+    val reported: List<String> = listOf(),
+    val location: GeoPoint
 )
 
 fun createUser(user: UserData, db: FirebaseFirestore) {
