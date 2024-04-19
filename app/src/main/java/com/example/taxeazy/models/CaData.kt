@@ -51,6 +51,7 @@ fun createCA(ca : CaData, db : FirebaseFirestore) {
 //Search CA Closest to you
 
 suspend fun getCAList(db: FirebaseFirestore): List<CaData> {
+
     val querySnapshot = db.collection("ca")
         .get()
         .await()
