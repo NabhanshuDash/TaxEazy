@@ -1,14 +1,12 @@
 package com.example.taxeazy
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
+import android.app.Application
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class MyApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
         FirebaseApp.initializeApp(this)
         FirebaseFirestore.setLoggingEnabled(true)
 
@@ -21,8 +19,8 @@ class MainActivity : ComponentActivity() {
             .limit(1)
 
         query.get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
+            .addOnSuccessListener {documents ->
+                for(document in documents) {
                     println("${document.id} => ${document.data}")
                 }
             }
