@@ -1,7 +1,9 @@
 package com.example.taxeazy.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
@@ -21,16 +23,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.taxeazy.MainActivity
 import com.example.taxeazy.components.*
 import com.example.taxeazy.models.UserData
 
 @Composable
 fun SignUpScreenUser() {
-    var userData by remember { mutableStateOf(UserData("", "", "", "", "", "", "", emptyArray(), emptyArray(), emptyArray(), emptyArray())) }
+    var userData by remember { mutableStateOf(UserData("", "", "", "", "", "", "", emptyList(), emptyList(), emptyList(), emptyList())) }
 
     Surface {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp).fillMaxSize()
         ) {
             TextComponent(
                 value = "Sign Up",
@@ -42,64 +45,62 @@ fun SignUpScreenUser() {
                 alignment = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(16.dp))
-            NormalTextFieldComponent(
-                LabelValue = "Username",
-                img = Icons.Filled.Person,
-                value = username,
-                onValueChange = { username = it }
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-            EmailTextFieldComponent(
-                LabelValue = "Email",
-                img = Icons.Filled.Email,
-                value = email,
-                onValueChange = { email = it }
+            CTextField(
+                hint = "Username",
+                value = userData.username,
+                onValueChange = { newName -> userData = userData.copy(username = newName) },
+                icon = Icons.Filled.Person
             )
             Spacer(modifier = Modifier.height(16.dp))
-            PasswordTextFieldComponent(
-                labelValue = "Password",
-                img = Icons.Filled.Lock,
-                value = password,
-                onValueChange = { password = it }
+            CTextField(
+                hint = "Email",
+                value = userData.email,
+                onValueChange = { newEmail -> userData = userData.copy(email = newEmail) },
+                icon = Icons.Filled.Email
             )
             Spacer(modifier = Modifier.height(16.dp))
-            NormalTextFieldComponent(
-                LabelValue = "Mobile No",
-                img = Icons.Filled.Phone,
-                value = mobileNo,
-                onValueChange = { mobileNo = it }
+            CTextField(
+                hint = "Password",
+                value = userData.password,
+                onValueChange = { newPwd -> userData = userData.copy(password = newPwd) },
+                icon = Icons.Filled.Lock
             )
             Spacer(modifier = Modifier.height(16.dp))
-            NormalTextFieldComponent(
-                LabelValue = "Aadhar No",
-                img = Icons.Filled.CardMembership,
-                value = aadharNo,
-                onValueChange = { aadharNo = it }
+            CTextField(
+                hint = "Mobile No",
+                value = userData.mobileNo,
+                onValueChange = { newMobile -> userData = userData.copy(mobileNo = newMobile) },
+                icon = Icons.Filled.Phone
             )
             Spacer(modifier = Modifier.height(16.dp))
-            NormalTextFieldComponent(
-                LabelValue = "Business Name",
-                img = Icons.Filled.Business,
-                value = businessName,
-                onValueChange = { businessName = it }
+            CTextField(
+                hint = "Aadhar No",
+                value = userData.aadhaarNo,
+                onValueChange = { newAadhar -> userData = userData.copy(aadhaarNo = newAadhar) },
+                icon = Icons.Filled.CardMembership
             )
             Spacer(modifier = Modifier.height(16.dp))
-            NormalTextFieldComponent(
-                LabelValue = "Language",
-                img = Icons.Filled.Language,
-                value = language,
-                onValueChange = { language = it }
+            CTextField(
+                hint = "Business Name",
+                value = userData.businessName,
+                onValueChange = { newBname -> userData = userData.copy(businessName = newBname) },
+                icon = Icons.Filled.Business
             )
             Spacer(modifier = Modifier.height(16.dp))
-            CheckboxComponent(
-                value = "Agree to Terms and Conditions",
-                size = 16
+            CTextField(
+                hint = "Language",
+                value = userData.language,
+                onValueChange = { newLang -> userData = userData.copy(language = newLang) },
+                icon = Icons.Filled.Language
             )
             Spacer(modifier = Modifier.height(16.dp))
-            ButtonComponent(
-                value = "Sign Up",
-                colortxt = Color.White
+            CButton(
+                text = "Register",
+                onClick = {
+                    // Call registerUser function
+                    val mainActivity = MainActivity()
+                    mainActivity.printUserData(userData)
+                }
             )
         }
     }

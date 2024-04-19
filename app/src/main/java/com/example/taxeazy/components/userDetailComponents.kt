@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,8 +19,10 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +36,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -59,186 +63,6 @@ fun TextComponent(value: String, fontStyletxt: FontStyle, fweight: FontWeight, s
         textAlign = alignment
     )
 }
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun NormalTextFieldComponent(LabelValue: String, img: ImageVector) {
-    val textValue = remember {
-        mutableStateOf("")
-    }
-
-    OutlinedTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(4.dp)),
-        singleLine = true,
-        label = { Text(text = LabelValue) },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Black,
-            focusedLabelColor = Color.Black,
-            cursorColor = Color.Black,
-        ),
-        keyboardOptions = KeyboardOptions.Default,
-        value = textValue.value,
-        onValueChange = {
-            textValue.value = it
-        },
-        leadingIcon = {
-            Icon(imageVector = img, contentDescription = "")
-        }
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun EmailTextFieldComponent(LabelValue: String, img: ImageVector) {
-    val textValue = remember {
-        mutableStateOf("")
-    }
-
-    OutlinedTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(4.dp)),
-        singleLine = true,
-        label = { Text(text = LabelValue) },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = Color.Black,
-            unfocusedLabelColor = Color.Black,
-            focusedBorderColor = Color.Black,
-            focusedLabelColor = Color.Black,
-            cursorColor = Color.Black,
-        ),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-        value = textValue.value,
-        onValueChange = {
-            textValue.value = it
-        },
-        leadingIcon = {
-            Icon(imageVector = img, contentDescription = "")
-        }
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun PasswordTextFieldComponent(labelValue: String, img: ImageVector) {
-    val password = remember {
-        mutableStateOf("")
-    }
-
-    val passwordVisible = remember {
-        mutableStateOf(false)
-    }
-
-    OutlinedTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(4.dp)),
-        singleLine = true,
-        label = { Text(text = labelValue) },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = Color.Black,
-            unfocusedLabelColor = Color.Black,
-            focusedBorderColor = Color.Black,
-            focusedLabelColor = Color.Black,
-            cursorColor = Color.Black,
-        ),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        value = password.value,
-        onValueChange = {
-            password.value = it
-        },
-        leadingIcon = {
-            Icon(imageVector = img, contentDescription = "")
-        },
-        trailingIcon = {
-            val iconImage = if (passwordVisible.value) {
-                Icons.Filled.Visibility
-            } else {
-                Icons.Filled.VisibilityOff
-            }
-
-            var description = if (passwordVisible.value) {
-                stringResource(id = R.string.hide_password)
-            } else {
-                stringResource(id = R.string.show_password)
-            }
-
-            IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
-                Icon(imageVector = iconImage, contentDescription = description)
-            }
-        },
-        visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
-
-    )
-}
-
-@Composable
-fun CheckboxComponent(value: String, size: Int) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(56.dp)
-            .padding(top = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        val checkedState = remember {
-            mutableStateOf(false)
-        }
-
-        Checkbox(checked = checkedState.value,
-            onCheckedChange = {
-                checkedState.value = !checkedState.value
-            })
-
-        TextComponent(value = value, fweight = FontWeight.Normal, size = size, minheight = 0, fontStyletxt = FontStyle.Normal ,
-            colortxt = Color.White, alignment = TextAlign.Start
-        )
-    }
-}
-
-@Composable
-fun ButtonComponent(value: String, colortxt: Color, onClick: () -> Unit = {}) {
-    Button(
-        onClick = { onClick() },
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(48.dp),
-        contentPadding = PaddingValues(),
-        colors = ButtonDefaults.buttonColors(
-            Color.Transparent
-        )
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(48.dp)
-                .background(
-                    brush = Brush.horizontalGradient(
-                        listOf(
-                            colorResource(id = R.color.purple_700),
-                            colorResource(id = R.color.purple_700)
-                        )
-                    ),
-                    shape = RoundedCornerShape(50.dp)
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = value,
-                style = TextStyle(
-                    fontStyle = FontStyle.Normal,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                ),
-                color = colortxt
-            )
-        }
-
-    }
-}
-
 @Composable
 fun GreyButtonComponent(value: String, colortxt: Color, onClick: () -> Unit = {}) {
     Button(
@@ -261,7 +85,7 @@ fun GreyButtonComponent(value: String, colortxt: Color, onClick: () -> Unit = {}
 //                            colorResource(id = R.color.colorGray),
 //                            colorResource(id = R.color.colorGray),
                             colorResource(id = R.color.purple_700),
-                                    colorResource(id = R.color.purple_700)
+                            colorResource(id = R.color.purple_700)
 
                         )
                     ),
@@ -278,5 +102,75 @@ fun GreyButtonComponent(value: String, colortxt: Color, onClick: () -> Unit = {}
             )
         }
 
+    }
+}
+
+@Composable
+fun CButton(
+    onClick: () -> Unit = {},
+    text: String,
+) {
+    // make this button also reusable
+    Button(
+        onClick = onClick,
+        shape = MaterialTheme.shapes.large,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFF7C9A92)
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(52.dp)
+    ) {
+
+        Text(
+            text = text,
+            style = TextStyle(
+                fontSize = 22.sp,
+                fontFamily = FontFamily.SansSerif,
+                fontWeight = FontWeight(500),
+                color = Color.White
+            )
+        )
+
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CTextField(
+    onValueChange: (String) -> Unit = {},
+    hint: String,
+    value: String,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null
+) {
+    Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        icon?.let {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.padding(end = 8.dp)
+            )
+        }
+        TextField(
+            value = value,
+            onValueChange = onValueChange,
+            placeholder = {
+                Text(
+                    text = hint,
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        color = Color(0xFF6B6B6B) // Darker hint color
+                    )
+                )
+            },
+            modifier = Modifier.weight(1f),
+            colors = TextFieldDefaults.textFieldColors(
+                focusedTextColor = Color.Black, // Darker text color
+                focusedIndicatorColor = Color(0xFF212121), // Darker outline color
+                unfocusedIndicatorColor = Color(0xFF212121) // Darker outline color
+            )
+        )
     }
 }

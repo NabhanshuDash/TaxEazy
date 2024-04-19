@@ -6,7 +6,7 @@ import java.util.*
 
 data class UserData(
     val username: String,
-    val email: String,
+    var email: String,
     val password: String,
     val mobileNo: String,
     val aadhaarNo: String,
