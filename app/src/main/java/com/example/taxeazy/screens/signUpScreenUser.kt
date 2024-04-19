@@ -1,6 +1,5 @@
 package com.example.taxeazy.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -74,9 +73,9 @@ fun SignUpScreenUser() {
             )
             Spacer(modifier = Modifier.height(16.dp))
             CTextField(
-                hint = "Aadhar No",
+                hint = "Aadhaar No",
                 value = userData.aadhaarNo,
-                onValueChange = { newAadhar -> userData = userData.copy(aadhaarNo = newAadhar) },
+                onValueChange = { newAadhaar -> userData = userData.copy(aadhaarNo = newAadhaar) },
                 icon = Icons.Filled.CardMembership
             )
             Spacer(modifier = Modifier.height(16.dp))

@@ -13,7 +13,7 @@ data class NotifyData(
 fun createNotification(notify: NotifyData, db : FirebaseFirestore) {
 
     val data = mapOf(
-        "uid" to generateRandomNotifyId(),
+        "uid" to generateRandomId(),
         "msg" to notify.msg,
         "status" to false
     )
@@ -26,8 +26,4 @@ fun createNotification(notify: NotifyData, db : FirebaseFirestore) {
         .addOnFailureListener { e ->
             println("Error adding user document: $e")
         }
-}
-
-fun generateRandomNotifyId() : String {
-    return UUID.randomUUID().toString()
 }

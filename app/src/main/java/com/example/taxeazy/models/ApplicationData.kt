@@ -12,13 +12,16 @@ data class ApplicationData(
 )
 
 fun createApplication(application: ApplicationData , db: FirebaseFirestore){
+
     val data = mapOf(
+        "uid" to generateRandomId(),
         "caid" to application.currentCA,
         "current" to application.currentDocs,
         "payment" to application.payment,
         "record" to application.record,
         "status" to application.status
     )
+
     db.collection("application")
         .add(data)
         .addOnSuccessListener { documentReference ->

@@ -1,12 +1,12 @@
 package com.example.taxeazy.models
 
 import com.google.firebase.firestore.FirebaseFirestore
-import android.location.Location
 
 data class CaData (
     val username: String,
     val uin: String,
     val email: String,
+    val password: String,
     val status: Boolean,
     val mobileNo: String,
     val location: Double,
@@ -17,13 +17,16 @@ data class CaData (
 )
 
 fun createCA(ca : CaData, db : FirebaseFirestore) {
+
     val data = mapOf(
+        "uid" to generateRandomId(),
         "name" to ca.username,
         "uin" to ca.uin,
         "email" to ca.email,
+        "password" to encryptPassword(ca.password),
         "status" to ca.status,
         "mobile" to ca.mobileNo,
-        "location" to getCaCurrentLocation(),// Assuming getCaCurrentLocation() returns a Location object
+        "location" to getCurrentLocation(),
         "language" to ca.language,
         "aid" to ca.currentApplication,
         "notification" to ca.notify,
@@ -37,11 +40,4 @@ fun createCA(ca : CaData, db : FirebaseFirestore) {
         .addOnFailureListener { e ->
             println("Error adding CA: $e")
         }
-}
-
-fun getCaCurrentLocation(): Location {
-    return Location("dummy_provider").apply {
-        latitude = 0.0
-        longitude = 0.0
-    }
 }

@@ -5,7 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 data class UserData(
-    val username: String,
+    var username: String,
     var email: String,
     val password: String,
     val mobileNo: String,
@@ -19,8 +19,9 @@ data class UserData(
 )
 
 fun createUser(user: UserData, db: FirebaseFirestore) {
+
     val data = mapOf(
-        "userId" to generateRandomUserId(),
+        "userId" to generateRandomId(),
         "name" to user.username,
         "email" to user.email,
         "password" to encryptPassword(user.password),
@@ -48,10 +49,10 @@ fun createUser(user: UserData, db: FirebaseFirestore) {
 
 fun encryptPassword(password: String): String {
     // Implement password encryption logic
-    return password // For now, return the same password (replace this with actual encryption)
+    return password
 }
 
-fun generateRandomUserId(): String {
+fun generateRandomId(): String {
     // Generate a random user ID (you can use UUID for this)
     return UUID.randomUUID().toString()
 }
