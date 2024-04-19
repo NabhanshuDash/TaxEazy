@@ -8,7 +8,7 @@ data class CaData (
     val mobileNo: String,
     val location: Double,
     val language: String,
-    val CurrentApplication: Array<String>,
+    val currentApplication: Array<String>,
     val notif: Array<String>,
     val reported: Array<String>
 )
