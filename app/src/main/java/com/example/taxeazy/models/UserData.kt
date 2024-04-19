@@ -12,7 +12,7 @@ data class UserData(
     val aadhaarNo: String,
     val businessName: String,
     val language: String,
-    val applicationId: List<String> = listOf(), // Changed to List<String> for better compatibility with Firestore
+    val applicationId: List<String> = listOf(),
     val personalStore: List<String> = listOf(),
     val notify: List<String> = listOf(),
     val reported: List<String> = listOf()
@@ -44,6 +44,7 @@ fun createUser(user: UserData, db: FirebaseFirestore) {
             println("Error adding user document: $e")
         }
 }
+
 
 fun encryptPassword(password: String): String {
     // Implement password encryption logic
