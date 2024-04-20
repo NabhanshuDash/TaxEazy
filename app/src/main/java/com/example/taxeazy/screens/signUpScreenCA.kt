@@ -23,15 +23,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taxeazy.app.MainActivity
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.taxeazy.app.SignUpCa
-import com.example.taxeazy.app.SignUpUser
 import com.example.taxeazy.components.*
 import com.example.taxeazy.models.CaData
 import com.google.firebase.firestore.GeoPoint
 
 @Composable
-fun SignUpScreenCA(){
+fun SignUpScreenCA(navController: NavHostController){
     var caData by remember { mutableStateOf(CaData("","","","",true,"",GeoPoint(0.0, 0.0),"",
         emptyList(), emptyList(), emptyList())) }
     Surface {
@@ -108,5 +110,5 @@ fun SignUpScreenCA(){
 @Preview
 @Composable
 fun SignUpScreenCAPreview() {
-    SignUpScreenCA()
+    SignUpScreenCA(rememberNavController())
 }

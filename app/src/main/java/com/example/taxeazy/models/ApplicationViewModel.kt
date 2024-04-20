@@ -21,6 +21,10 @@ class ApplicationViewModel : ViewModel() {
         }
     }
 
+    fun getApplicationDataList(): List<List<ApplicationData>> {
+        return applicationDataList
+    }
+
     private suspend fun fetchApplications(userData: UserData, db: FirebaseFirestore): List<List<ApplicationData>> {
         val applicationLists: MutableList<List<ApplicationData>> = mutableListOf()
 
