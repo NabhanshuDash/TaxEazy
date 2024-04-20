@@ -13,7 +13,7 @@ import kotlinx.coroutines.tasks.await
 class CAViewModel : ViewModel() {
     // MutableState to hold the fetched CA data
 
-    var cadata by mutableStateOf<CaData>(CaData("", "", "", "", false, "", GeoPoint(0.0, 0.0), "", emptyList(), emptyList(), emptyList()))
+    var cadata by mutableStateOf<CaData>(CaData("", "", "", "", false, "", GeoPoint(0.0, 0.0), "", emptyList(), emptyList(), emptyList(), emptyList()))
     var calist by mutableStateOf<List<CaData>>(emptyList())
 
 
@@ -57,8 +57,9 @@ class CAViewModel : ViewModel() {
                 val currentApplication = document.get("aid") as List<String>
                 val notify = document.get("notification") as List<String>
                 val reported = document.get("reported") as List<String>
+                val clients = document.get("clients") as List<String>
 
-                return CaData(name, uin, email, password, status, mobileNo, location, language, currentApplication, notify, reported)
+                return CaData(name, uin, email, password, status, mobileNo, location, language, currentApplication, notify, reported, clients)
             }
 
             return cadata
@@ -87,9 +88,10 @@ class CAViewModel : ViewModel() {
             val currentApplication = (document.data?.get("currentApplication") as? List<String>) ?: emptyList()
             val notify = (document.data?.get("notify") as? List<String>) ?: emptyList()
             val reported = (document.data?.get("reported") as? List<String>) ?: emptyList()
+            val clients = (document.data?.get("clients") as? List<String>) ?: emptyList()
 
 
-            val caData = CaData(username, uin, email, password, status, mobileNo, location, language, currentApplication, notify, reported)
+            val caData = CaData(username, uin, email, password, status, mobileNo, location, language, currentApplication, notify, reported, clients)
             caDataList.add(caData)
         }
 

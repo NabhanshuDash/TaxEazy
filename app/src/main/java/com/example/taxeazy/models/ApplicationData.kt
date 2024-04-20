@@ -5,7 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Date
 
 data class ApplicationData(
-    val currentDocs: List<*>?,
+    val currentDocs: List<String>,
     val currentCA: String,
     val status: Boolean,
     val record: String,

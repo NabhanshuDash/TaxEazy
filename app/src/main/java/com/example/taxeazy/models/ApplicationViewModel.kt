@@ -14,11 +14,22 @@ import kotlinx.coroutines.tasks.await
 class ApplicationViewModel : ViewModel() {
     // MutableState to hold the fetched application data
     var applicationDataList by mutableStateOf<List<ApplicationData>>(emptyList())
+    var singleApplicationData by mutableStateOf<ApplicationData>(ApplicationData(emptyList(), "", false, "", false, Timestamp.now(), ""))
 
     fun fetchApplicationData(userData: UserData, db: FirebaseFirestore) {
         // Fetch application data using a coroutine scope
         viewModelScope.launch {
             applicationDataList = fetchApplications(userData, db)
+        }
+    }
+
+    fun getsingleApplicationData() : ApplicationData{
+        return singleApplicationData
+    }
+
+    fun fetchSingleApplicationData(uid : String, db : FirebaseFirestore) {
+        viewModelScope.launch {
+            singleApplicationData = fetchApplicationData(uid, db) as ApplicationData
         }
     }
 
@@ -51,7 +62,7 @@ class ApplicationViewModel : ViewModel() {
 
             for (document in querySnapshot.documents) {
                 val caid = document.data?.get("caid").toString()
-                val current = document.data?.get("current") as List<*>?
+                val current = document.data?.get("current") as List<String>
                 val payment: Boolean = document.data?.get("payment") as Boolean
                 val record = document.data?.get("record").toString()
                 val uid = document.data?.get("uid").toString()
