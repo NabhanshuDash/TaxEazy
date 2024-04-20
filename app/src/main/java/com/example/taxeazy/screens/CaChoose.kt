@@ -10,7 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.taxeazy.models.CAViewModel
 import com.example.taxeazy.models.CaData
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 
 @Composable
@@ -38,7 +41,14 @@ fun CaChoose(caData: CaData) {
 }
 
 @Composable
-fun CaSelectionScreen(caDataList: List<CaData>) {
+fun CaSelectionScreen() {
+
+    var db = FirebaseFirestore.getInstance()
+
+    var viewModel : CAViewModel = viewModel()
+    viewModel.fetchCAList(db)
+    var caDataList = viewModel.getcalist()
+
     LazyColumn(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -52,49 +62,6 @@ fun CaSelectionScreen(caDataList: List<CaData>) {
 @Composable
 fun CaChoosePreview(){
 
-    val caDataList = listOf(
-        CaData(
-            username = "John Doe",
-            language = "English, Spanish",
-            password = "",
-            uin = "",
-            email = "",
-            status = false,
-            mobileNo = "",
-            location = GeoPoint(37.7749, -122.4194),
-            currentApplication = emptyList(),
-            notify = emptyList(),
-            reported = emptyList()
-        ),
-        CaData(
-            username = "Alice Smith",
-            language = "French, German",
-            password = "",
-            uin = "",
-            email = "",
-            status = false,
-            mobileNo = "",
-            location = GeoPoint(37.7749, -122.4194),
-            currentApplication = emptyList(),
-            notify = emptyList(),
-            reported = emptyList()
-        ),
-        CaData(
-            username = "Bob Johnson",
-            language = "Japanese, Korean",
-            password = "",
-            uin = "",
-            email = "",
-            status = false,
-            mobileNo = "",
-            location = GeoPoint(37.7749, -122.4194),
-            currentApplication = emptyList(),
-            notify = emptyList(),
-            reported = emptyList()
-        )
-        // Add more CAData objects as needed
-    )
-
-    CaSelectionScreen(caDataList)
+    CaSelectionScreen()
 
 }
