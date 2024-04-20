@@ -9,8 +9,9 @@ data class ApplicationData(
     val currentCA: String,
     val status: Boolean,
     val record: String,
-    val payment: String?,
-    val date: Timestamp
+    val payment: Boolean?,
+    val date: Timestamp,
+    val uid: String
 )
 
 fun createApplication(application: ApplicationData , db: FirebaseFirestore){

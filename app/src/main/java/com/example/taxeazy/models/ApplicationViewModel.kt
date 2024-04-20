@@ -25,7 +25,7 @@ class ApplicationViewModel : ViewModel() {
     fun getApplicationData(): List<ApplicationData> {
         return applicationDataList
     }
-
+    
     private suspend fun fetchApplications(userData: UserData, db: FirebaseFirestore): List<ApplicationData> {
         val applicationLists: MutableList<ApplicationData> = mutableListOf()
 
@@ -56,8 +56,9 @@ class ApplicationViewModel : ViewModel() {
                 val record = document.data?.get("record").toString()
                 val uid = document.data?.get("uid").toString()
                 val date = document.data?.get("date") as Timestamp
+                val status = document.data?.get("status") as Boolean
 
-                return ApplicationData(current, caid, payment, record, uid, date)
+                return ApplicationData(current, caid,  status,record, payment,date, uid)
             }
 
             return null
