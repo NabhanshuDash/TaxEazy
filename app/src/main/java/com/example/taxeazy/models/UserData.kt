@@ -71,21 +71,6 @@ fun createUser(user: UserData, db: FirebaseFirestore) {
 //    return false
 //}
 
-suspend fun loginUser(email: String, password: String): Boolean {
-    val auth = FirebaseAuth.getInstance()
-
-    try {
-        auth.signInWithEmailAndPassword(email, password).await()
-        // If signInWithEmailAndPassword doesn't throw an exception, login is successful
-        return true
-    } catch (e: Exception) {
-        // If an exception occurs, login fails
-        println("Error logging in user: $e")
-        return false
-    }
-}
-
-
 fun encryptPassword(password: String): String {
     // Implement password encryption logic
     return password
