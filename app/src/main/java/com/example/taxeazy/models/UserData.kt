@@ -3,6 +3,8 @@ package com.example.taxeazy.models
 import android.location.Location
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.coroutines.tasks.await
 import java.util.*
 
 data class UserData(
@@ -46,6 +48,26 @@ fun createUser(user: UserData, db: FirebaseFirestore) {
         .addOnFailureListener { e ->
             println("Error adding user document: $e")
         }
+}
+
+suspend fun loginUser(username: String, password: String, db: FirebaseFirestore): Boolean {
+    try {
+        val querySnapshot: QuerySnapshot = db.collection("users")
+            .whereEqualTo("name", username)
+            .whereEqualTo("password", encryptPassword(password)) // Assuming you have a function to encrypt password
+            .get()
+            .await()
+
+        // Check if any user with matching credentials exists
+        if (!querySnapshot.isEmpty) {
+            // User with matching credentials found
+            return true
+        }
+    } catch (e: Exception) {
+        println("Error logging in user: $e")
+    }
+    // User not found or error occurred
+    return false
 }
 
 
