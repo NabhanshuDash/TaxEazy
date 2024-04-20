@@ -19,7 +19,8 @@ data class CaData (
     val language: String,
     val currentApplication: List<String> = listOf(),
     val notify: List<String> = listOf(),
-    val reported: List<String> = listOf()
+    val reported: List<String> = listOf(),
+    val clients: List<String> = listOf()
 )
 
 fun createCA(ca : CaData, db : FirebaseFirestore) {
@@ -36,7 +37,8 @@ fun createCA(ca : CaData, db : FirebaseFirestore) {
         "language" to ca.language,
         "aid" to ca.currentApplication,
         "notification" to ca.notify,
-        "reported" to ca.reported
+        "reported" to ca.reported,
+        "clients" to ca.clients
     )
     db.collection("ca")
         .add(data)

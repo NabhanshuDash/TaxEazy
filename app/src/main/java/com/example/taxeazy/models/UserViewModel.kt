@@ -27,6 +27,8 @@ class UserViewModel : ViewModel() {
         location = GeoPoint(0.0, 0.0) // Assuming initial location is (0.0, 0.0)
     ))
 
+
+
     fun generateFetchUser(uid : String, db: FirebaseFirestore) {
         viewModelScope.launch {
             currentUser = fetchUser(uid,db) as  UserData
@@ -69,4 +71,6 @@ class UserViewModel : ViewModel() {
             return null
         }
     }
+
+
 }
