@@ -16,16 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -105,7 +101,7 @@ class UploadDocsActivity : ComponentActivity() {
 
     private fun uploadDocumentToFirestore(applicationId: String, uri: Uri) {
         val docData = hashMapOf(
-            "docsuri" to uri.toString()
+            "docs" to uri.toString()
         )
 
         firestore.collection("yourCollectionName") // Replace with your collection name
