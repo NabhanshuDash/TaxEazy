@@ -15,6 +15,7 @@ materialIconsExtended = "1.6.5"
 firebaseFirestoreKtx = "24.11.1"
 appcompat = "1.6.1"
 material = "1.11.0"
+materialVersion = "1.5.0"
 navigationRuntimeKtx = "2.7.7"
 firebaseAuthKtx = "22.3.1"
 navigationCompose = "2.7.7"
@@ -52,6 +53,7 @@ androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "l
 firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+material-v150 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
