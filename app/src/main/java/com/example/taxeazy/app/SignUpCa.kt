@@ -74,7 +74,8 @@ class SignUpCa: ComponentActivity() {
                         hint = "Username",
                         value = caData.username,
                         onValueChange = { newName -> caData = caData.copy(username = newName) },
-                        icon = Icons.Filled.Person
+                        icon = Icons.Filled.Person,
+                        leadingIcon = { Icon(Icons.Filled.Person, contentDescription = "Username") }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     CTextField(
@@ -83,14 +84,16 @@ class SignUpCa: ComponentActivity() {
                         onValueChange = { newMembershipId ->
                             caData = caData.copy(uin = newMembershipId)
                         },
-                        icon = Icons.Filled.CardMembership
+                        icon = Icons.Filled.CardMembership,
+                        leadingIcon = { Icon(Icons.Filled.CardMembership, contentDescription = "Membership Id") }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     CTextField(
                         hint = "Email",
                         value = caData.email,
                         onValueChange = { newEmail -> caData = caData.copy(email = newEmail) },
-                        icon = Icons.Filled.Email
+                        icon = Icons.Filled.Email,
+                        leadingIcon = { Icon(Icons.Filled.Email, contentDescription = "Email") }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     CTextField(
@@ -106,14 +109,16 @@ class SignUpCa: ComponentActivity() {
                         hint = "Mobile No",
                         value = caData.mobileNo,
                         onValueChange = { newMobile -> caData = caData.copy(mobileNo = newMobile) },
-                        icon = Icons.Filled.Phone
+                        icon = Icons.Filled.Phone,
+                        leadingIcon = { Icon(Icons.Filled.Phone, contentDescription = "Mobile No") }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     CTextField(
                         hint = "Language",
                         value = caData.language,
                         onValueChange = { newLang -> caData = caData.copy(language = newLang) },
-                        icon = Icons.Filled.Language
+                        icon = Icons.Filled.Language,
+                        leadingIcon = { Icon(Icons.Filled.Language, contentDescription = "Language") }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     CButton(
