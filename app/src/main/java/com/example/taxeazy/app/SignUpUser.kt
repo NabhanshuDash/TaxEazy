@@ -3,6 +3,7 @@ package com.example.taxeazy.app
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -125,39 +126,65 @@ class SignUpUser : ComponentActivity() {
                 }
             }
         }
-        fun signUpUser(userData: UserData) {
-            // Use Firebase Auth to create user with email and password
-            val auth: FirebaseAuth = FirebaseAuth.getInstance()
-            val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    fun signUpUser(userData: UserData) {
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
+        val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-            val encryptedPassword = CryptoUtils.encryptPassword(userData.password)
-            auth.createUserWithEmailAndPassword(userData.email, encryptedPassword)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val firebaseUser = auth.currentUser
-                        val userId = firebaseUser?.uid
-
-                        if (userId != null) {
-                            // Save additional user data to Firestore
-                            firestore.collection("users").document(userId)
-                                .set(userData)
-                                .addOnSuccessListener {
-                                    // Data saved successfully
-                                    println("User data saved successfully")
-
-                                }
-                                .addOnFailureListener { e ->
-                                    // Error saving data
-                                    println("Error saving user data: $e")
-                                }
-                        }
-                    } else {
-                        // Error creating user
-                        println("Error creating user: ${task.exception}")
-                    }
-                }
+        //Validate user data before proceeding
+        if (!isValidUserData(userData)) {
+            println("Invalid user data provided")
+            return
         }
 
+        val encryptedPassword = CryptoUtils.encryptPassword(userData.password)
+
+        auth.createUserWithEmailAndPassword(userData.email, encryptedPassword)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val firebaseUser = auth.currentUser
+                    val userId = firebaseUser?.uid
+
+                    if (userId != null) {
+                        firestore.collection("users").document(userId)
+                            .set(userData)
+                            .addOnSuccessListener {
+                                println("User data saved successfully")
+                                navigateToLandingPage()
+                            }
+                            .addOnFailureListener { e ->
+                                println("Error saving user data: $e")
+                                // Show an error message to the user
+                                showError("Failed to save user data. Please try again.")
+                            }
+                    }
+                } else {
+                    println("Error creating user: ${task.exception}")
+                    // Show an error message to the user
+                    showError("Failed to create user. Please try again.")
+                }
+            }
+            .addOnFailureListener { e ->
+                println("General error: $e")
+                // Show an error message to the user
+                showError("An unknown error occurred. Please try again.")
+            }
+    }
+
+    private fun isValidUserData(userData: UserData): Boolean {
+        //Implement your validation logic here
+        //For example, check if email is valid, password meets criteria, etc.
+        return true
+    }
+
+    private fun navigateToLandingPage() {
+        val navigate = Intent(this@SignUpUser, LandingPage::class.java)
+        startActivity(navigate)
+    }
+
+    private fun showError(message: String) {
+        //You can show this error message to the user using a Toast, Snackbar, or any other UI component
+        Toast.makeText(this@SignUpUser, message, Toast.LENGTH_SHORT).show()
+    }
     }
 
 
