@@ -28,7 +28,7 @@
             android:name=".app.SignUpCa"
             android:exported="false" />
         <activity
-            android:name=".app.LandingPage"
+            android:name=".app.LandingPageUser"
             android:exported="false"
             android:theme="@style/Theme.AppCompat" />
         <activity

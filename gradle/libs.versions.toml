@@ -1,4 +1,5 @@
 [versions]
+accompanistCoil = "0.19.0"
 agp = "8.3.0"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
@@ -26,6 +27,7 @@ constraintlayout = "2.1.4"
 firebaseStorage = "20.3.0"
 
 [libraries]
+accompanist-coil = { module = "dev.chrisbanes.accompanist:accompanist-coil", version.ref = "accompanistCoil" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

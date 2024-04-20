@@ -107,7 +107,6 @@ class LoginActivity : ComponentActivity() {
                                                     // Login successful
                                                     // Navigate to the next screen or perform actions
                                                     val navigate = Intent(this@LoginActivity, LandingPage::class.java)
-                                                    navigate.putExtra("UID", auth.currentUser?.uid)
                                                     startActivity(navigate)
                                                 } else {
                                                     // Login failed

@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Business
 import androidx.compose.material.icons.filled.CardMembership
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Language
@@ -36,7 +35,6 @@ import com.example.taxeazy.components.CButton
 import com.example.taxeazy.components.CTextField
 import com.example.taxeazy.components.TextComponent
 import com.example.taxeazy.models.CaData
-import com.example.taxeazy.models.UserData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -124,7 +122,7 @@ class SignUpCa: ComponentActivity() {
                             // Call registerUser function
                             val signUpCa = SignUpCa()
                             signUpCa.signUpCa(caData)
-                            val navigate = Intent(this@SignUpCa, LandingPage::class.java)
+                            val navigate = Intent(this@SignUpCa, LandingPageUser::class.java)
                             startActivity(navigate)
                         }
                     )
@@ -178,7 +176,7 @@ class SignUpCa: ComponentActivity() {
     }
 
     private fun navigateToLandingPage() {
-        val navigate = Intent(this@SignUpCa, LandingPage::class.java)
+        val navigate = Intent(this@SignUpCa, LandingPageUser::class.java)
         startActivity(navigate)
     }
 
