@@ -38,12 +38,11 @@ import com.example.taxeazy.models.UserData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
+import com.example.taxeazy.Utils.CryptoUtils
 
 
 class SignUpUser : ComponentActivity() {
 
-        private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-        private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -130,7 +129,9 @@ class SignUpUser : ComponentActivity() {
             // Use Firebase Auth to create user with email and password
             val auth: FirebaseAuth = FirebaseAuth.getInstance()
             val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-            auth.createUserWithEmailAndPassword(userData.email, userData.password)
+
+            val encryptedPassword = CryptoUtils.encryptPassword(userData.password)
+            auth.createUserWithEmailAndPassword(userData.email, encryptedPassword)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val firebaseUser = auth.currentUser
