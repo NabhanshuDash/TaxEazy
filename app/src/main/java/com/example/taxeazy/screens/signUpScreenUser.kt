@@ -109,6 +109,6 @@ fun SignUpScreenUser() {
 
 @Preview
 @Composable
-fun SignupScreenPreview() {
+fun SignupScreenUserPreview() {
     SignUpScreenUser()
 }
