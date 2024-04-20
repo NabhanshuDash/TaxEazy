@@ -3,6 +3,7 @@ package com.example.taxeazy.app
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
@@ -39,7 +40,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 
 
-class SignUpUser : AppCompatActivity() {
+class SignUpUser : ComponentActivity() {
 
         private val auth: FirebaseAuth = FirebaseAuth.getInstance()
         private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -47,8 +48,6 @@ class SignUpUser : AppCompatActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContent {
-                @Composable
-                fun SignUpScreenUser() {
                     var userData by remember { mutableStateOf(UserData("", "", "", "", "", "", "", emptyList(), emptyList(), emptyList(), emptyList(), GeoPoint(0.0, 0.0))) }
                     Surface {
                         Column(
@@ -124,7 +123,6 @@ class SignUpUser : AppCompatActivity() {
                                 }
                             )
                         }
-                    }
                 }
             }
         }

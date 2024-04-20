@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Business
 import androidx.compose.material.icons.filled.CardMembership
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Language
@@ -23,9 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taxeazy.app.MainActivity
 import com.example.taxeazy.app.SignUpCa
-import com.example.taxeazy.app.SignUpUser
 import com.example.taxeazy.components.*
 import com.example.taxeazy.models.CaData
 import com.google.firebase.firestore.GeoPoint
