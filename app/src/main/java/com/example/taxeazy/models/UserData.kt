@@ -1,6 +1,7 @@
 package com.example.taxeazy.models
 
 import android.location.Location
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.QuerySnapshot
@@ -50,24 +51,38 @@ fun createUser(user: UserData, db: FirebaseFirestore) {
         }
 }
 
-suspend fun loginUser(username: String, password: String, db: FirebaseFirestore): Boolean {
-    try {
-        val querySnapshot: QuerySnapshot = db.collection("users")
-            .whereEqualTo("name", username)
-            .whereEqualTo("password", encryptPassword(password)) // Assuming you have a function to encrypt password
-            .get()
-            .await()
+//suspend fun loginUser(username: String, password: String, db: FirebaseFirestore): Boolean {
+//    try {
+//        val querySnapshot: QuerySnapshot = db.collection("users")
+//            .whereEqualTo("name", username)
+//            .whereEqualTo("password", encryptPassword(password)) // Assuming you have a function to encrypt password
+//            .get()
+//            .await()
+//
+//        // Check if any user with matching credentials exists
+//        if (!querySnapshot.isEmpty) {
+//            // User with matching credentials found
+//            return true
+//        }
+//    } catch (e: Exception) {
+//        println("Error logging in user: $e")
+//    }
+//    // User not found or error occurred
+//    return false
+//}
 
-        // Check if any user with matching credentials exists
-        if (!querySnapshot.isEmpty) {
-            // User with matching credentials found
-            return true
-        }
+suspend fun loginUser(email: String, password: String): Boolean {
+    val auth = FirebaseAuth.getInstance()
+
+    try {
+        auth.signInWithEmailAndPassword(email, password).await()
+        // If signInWithEmailAndPassword doesn't throw an exception, login is successful
+        return true
     } catch (e: Exception) {
+        // If an exception occurs, login fails
         println("Error logging in user: $e")
+        return false
     }
-    // User not found or error occurred
-    return false
 }
 
 
