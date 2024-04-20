@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.example.taxeazy.components.TextComponent
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
@@ -52,7 +53,7 @@ class UploadDocsActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         // Extract the applicationId from your intent or wherever you're getting it from
-        currentApplicationId = intent.getStringExtra("applicationId") ?: ""
+        currentApplicationId = intent.getStringExtra("application") ?: ""
 
         setContent {
             var documentUri by remember { mutableStateOf<Uri?>(null) }
@@ -100,11 +101,11 @@ class UploadDocsActivity : ComponentActivity() {
     }
 
     private fun uploadDocumentToFirestore(applicationId: String, uri: Uri) {
-        val docData = hashMapOf(
-            "docs" to uri.toString()
+        val docData = hashMapOf<String, Any>(
+            "docs" to FieldValue.arrayUnion(uri.toString())
         )
 
-        firestore.collection("yourCollectionName") // Replace with your collection name
+        firestore.collection("application") // Replace with your collection name
             .document(applicationId)
             .set(docData)
             .addOnSuccessListener {
