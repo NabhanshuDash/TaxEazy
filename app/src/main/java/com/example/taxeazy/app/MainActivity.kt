@@ -1,4 +1,4 @@
-package com.example.taxeazy
+package com.example.taxeazy.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -37,15 +37,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun printUserData(userData: UserData) {
-        println("User Details:")
-        println("Username: ${userData.username}")
-        println("Email: ${userData.email}")
-        println("Password: ${userData.password}")
-        println("Mobile No: ${userData.mobileNo}")
-        println("Aadhar No: ${userData.aadhaarNo}")
-        println("Business Name: ${userData.businessName}")
-        println("Language: ${userData.language}")
-        // Add printing for other fields as needed
-    }
 }

@@ -22,13 +22,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taxeazy.MainActivity
+import com.example.taxeazy.app.MainActivity
+import com.example.taxeazy.app.SignUpUser
 import com.example.taxeazy.components.*
 import com.example.taxeazy.models.UserData
+import com.google.firebase.firestore.GeoPoint
 
 @Composable
 fun SignUpScreenUser() {
-    var userData by remember { mutableStateOf(UserData("", "", "", "", "", "", "", emptyList(), emptyList(), emptyList(), emptyList())) }
+    var userData by remember { mutableStateOf(UserData("", "", "", "", "", "", "", emptyList(), emptyList(), emptyList(), emptyList(), GeoPoint(0.0, 0.0))) }
 
     Surface {
         Column(
@@ -97,8 +99,8 @@ fun SignUpScreenUser() {
                 text = "Register",
                 onClick = {
                     // Call registerUser function
-                    val mainActivity = MainActivity()
-                    mainActivity.printUserData(userData)
+                    val signUpUser = SignUpUser()
+                    signUpUser.signUpUser(userData)
                 }
             )
         }

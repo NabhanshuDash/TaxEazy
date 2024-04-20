@@ -66,3 +66,5 @@ fun getCurrentLocation(): Location {
         longitude = 0.0
     }
 }
+
+
