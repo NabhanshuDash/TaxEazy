@@ -13,6 +13,9 @@ firebaseDatabase = "20.3.1"
 firebaseFirestore = "24.11.1"
 materialIconsExtended = "1.6.5"
 firebaseFirestoreKtx = "24.11.1"
+appcompat = "1.6.1"
+material = "1.11.0"
+navigationRuntimeKtx = "2.7.7"
 firebaseAuthKtx = "22.3.1"
 
 [libraries]
@@ -35,6 +38,9 @@ google-services = { group = "com.google.gms", name = "google-services", version.
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 
 [plugins]
