@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.firebase.storage.ktx)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -90,5 +91,10 @@ dependencies {
     implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.0.0-alpha06")
     implementation ("com.google.android.material:material:1.3.0")
     implementation ("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation ("com.squareup.picasso:picasso:2.8")
+    implementation ("com.github.dhaval2404:imagepicker:2.1")
+
+
+
 
 }
