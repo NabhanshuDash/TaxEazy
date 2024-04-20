@@ -12,7 +12,7 @@ import kotlinx.coroutines.tasks.await
 
 class ApplicationViewModel : ViewModel() {
     // MutableState to hold the fetched application data
-    var applicationDataList by mutableStateOf<List<List<ApplicationData>>>(emptyList())
+    var applicationDataList by mutableStateOf<List<ApplicationData>>(emptyList())
 
     fun fetchApplicationData(userData: UserData, db: FirebaseFirestore) {
         // Fetch application data using a coroutine scope
@@ -21,12 +21,12 @@ class ApplicationViewModel : ViewModel() {
         }
     }
 
-    fun getApplicationDataList(): List<List<ApplicationData>> {
+    fun getApplicationData(): List<ApplicationData> {
         return applicationDataList
     }
 
-    private suspend fun fetchApplications(userData: UserData, db: FirebaseFirestore): List<List<ApplicationData>> {
-        val applicationLists: MutableList<List<ApplicationData>> = mutableListOf()
+    private suspend fun fetchApplications(userData: UserData, db: FirebaseFirestore): List<ApplicationData> {
+        val applicationLists: MutableList<ApplicationData> = mutableListOf()
 
         // Iterate over the list of app IDs in userData
         for (appId in userData.applicationId) {
@@ -40,7 +40,7 @@ class ApplicationViewModel : ViewModel() {
         return applicationLists
     }
 
-    private suspend fun fetchApplicationData(appId: String, db: FirebaseFirestore): List<ApplicationData>? {
+    private suspend fun fetchApplicationData(appId: String, db: FirebaseFirestore): ApplicationData? {
         try {
             val querySnapshot = db.collection("application")
                 .whereEqualTo("uid", appId)
@@ -48,22 +48,17 @@ class ApplicationViewModel : ViewModel() {
                 .get()
                 .await()
 
-            val applicationDataList = mutableListOf<ApplicationData>()
-
             for (document in querySnapshot.documents) {
-                val caid = document.getString("caid")
-                val current = document.get("current") as List<*>?
-                val payment = document.getBoolean("payment") ?: false
-                val record = document.getBoolean("record") ?: false
-                val uid = document.getString("uid")
+                val caid = document.data?.get("caid").toString()
+                val current = document.data?.get("current") as List<*>?
+                val payment: Boolean = document.data?.get("payment") as Boolean
+                val record = document.data?.get("record").toString()
+                val uid = document.data?.get("uid").toString()
 
-                val applicationData = caid?.let { ApplicationData(current, it, payment, record, uid) }
-                if (applicationData != null) {
-                    applicationDataList.add(applicationData)
-                }
+                return ApplicationData(current, caid, payment, record, uid)
             }
 
-            return applicationDataList
+            return null
         } catch (e: Exception) {
             println("Error fetching application data: $e")
             return null

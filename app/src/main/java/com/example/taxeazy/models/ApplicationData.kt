@@ -6,7 +6,7 @@ data class ApplicationData(
     val currentDocs: List<*>?,
     val currentCA: String,
     val status: Boolean,
-    val record: Boolean,
+    val record: String,
     val payment: String?
 )
 
