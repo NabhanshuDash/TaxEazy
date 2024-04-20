@@ -2,6 +2,7 @@ package com.example.taxeazy.app
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -128,7 +129,12 @@ class SignUpCa: ComponentActivity() {
         }
     }
     fun signUpCa(caData: CaData) {
-        // Use Firebase Auth to create user with email and password
+        // Validate CA data before proceeding
+        if (!isValidCaData(caData)) {
+            println("Invalid CA data provided")
+            return
+        }
+
         auth.createUserWithEmailAndPassword(caData.email, caData.password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -136,22 +142,44 @@ class SignUpCa: ComponentActivity() {
                     val userId = firebaseUser?.uid
 
                     if (userId != null) {
-                        // Save additional user data to Firestore
                         firestore.collection("ca").document(userId)
                             .set(caData)
                             .addOnSuccessListener {
-                                // Data saved successfully
                                 println("Data saved successfully")
+                                navigateToLandingPage()
                             }
                             .addOnFailureListener { e ->
-                                // Error saving data
                                 println("Error saving Data: $e")
+                                // Show an error message to the user
+                                showError("Failed to save CA data. Please try again.")
                             }
                     }
                 } else {
-                    // Error creating user
                     println("Error creating user: ${task.exception}")
+                    // Show an error message to the user
+                    showError("Failed to create CA user. Please try again.")
                 }
             }
+            .addOnFailureListener { e ->
+                println("General error: $e")
+                // Show an error message to the user
+                showError("An unknown error occurred. Please try again.")
+            }
+    }
+
+    private fun isValidCaData(caData: CaData): Boolean {
+        // Implement your validation logic here
+        // For example, check if email is valid, password meets criteria, etc.
+        return true
+    }
+
+    private fun navigateToLandingPage() {
+        val navigate = Intent(this@SignUpCa, LandingPage::class.java)
+        startActivity(navigate)
+    }
+
+    private fun showError(message: String) {
+        // You can show this error message to the user using a Toast, Snackbar, or any other UI component
+        Toast.makeText(this@SignUpCa, message, Toast.LENGTH_SHORT).show()
     }
 }
