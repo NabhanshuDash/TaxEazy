@@ -93,9 +93,5 @@ dependencies {
     implementation ("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation ("com.github.dhaval2404:imagepicker:2.1")
-
-
-
     implementation ("io.coil-kt:coil-compose:1.4.0")
-    implementation ("dev.chrisbanes.accompanist:accompanist-coil:0.19.0")
 }

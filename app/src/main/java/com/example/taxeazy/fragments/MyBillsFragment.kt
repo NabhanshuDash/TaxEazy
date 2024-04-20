@@ -129,6 +129,7 @@ class MyBillsFragment : Fragment() {
         }.addOnFailureListener { exception ->
             // Handle any errors with listing files
         }
+
     }
 
     private fun compressImage(bitmap: Bitmap): Bitmap {

@@ -174,7 +174,8 @@ fun CTextField(
                 focusedTextColor = Color.Black, // Darker text color
                 focusedIndicatorColor = Color(0xFF212121), // Darker outline color
                 unfocusedIndicatorColor = Color(0xFF212121) // Darker outline color
-            )
+            ),
+            maxLines = 1
         )
     }
 }
