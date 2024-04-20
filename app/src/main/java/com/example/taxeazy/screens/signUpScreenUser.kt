@@ -22,19 +22,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taxeazy.app.MainActivity
-import com.example.taxeazy.app.SignUpUser
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.taxeazy.components.*
 import com.example.taxeazy.models.UserData
 import com.google.firebase.firestore.GeoPoint
 
 @Composable
-fun SignUpScreenUser() {
-    var userData by remember { mutableStateOf(UserData("", "", "", "", "", "", "", emptyList(), emptyList(), emptyList(), emptyList(), GeoPoint(0.0, 0.0))) }
+fun SignUpScreenUser(navController: NavHostController) {
+    var userData by remember { mutableStateOf(UserData("", "", "", "", "", "", "", emptyList(), emptyList(), emptyList(), emptyList(), GeoPoint(
+        0.0, 0.0
+    ))) }
 
     Surface {
         Column(
-            modifier = Modifier.padding(16.dp).fillMaxSize()
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxSize()
         ) {
             TextComponent(
                 value = "Sign Up",
@@ -98,9 +102,7 @@ fun SignUpScreenUser() {
             CButton(
                 text = "Register",
                 onClick = {
-                    // Call registerUser function
-                    val signUpUser = SignUpUser()
-                    signUpUser.signUpUser(userData)
+
                 }
             )
         }
@@ -110,5 +112,5 @@ fun SignUpScreenUser() {
 @Preview
 @Composable
 fun SignupScreenPreview() {
-    SignUpScreenUser()
+    SignUpScreenUser(rememberNavController())
 }

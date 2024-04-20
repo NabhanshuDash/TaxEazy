@@ -1,14 +1,13 @@
 package com.example.taxeazy.models
 
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.UUID
 
 data class ApplicationData(
-    val currentDocs: List<String> = listOf(),
+    val currentDocs: List<*>?,
     val currentCA: String,
-    val status: String,
-    val record: String,
-    val payment: Boolean
+    val status: Boolean,
+    val record: Boolean,
+    val payment: String?
 )
 
 fun createApplication(application: ApplicationData , db: FirebaseFirestore){

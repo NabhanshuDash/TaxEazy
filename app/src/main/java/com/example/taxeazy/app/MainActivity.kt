@@ -3,6 +3,7 @@ package com.example.taxeazy.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.compose.rememberNavController
 import com.example.taxeazy.models.UserData
 import com.example.taxeazy.screens.SignUpScreenUser
 import com.google.firebase.FirebaseApp
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
                 println("Error getting documents $exception")
             }
         setContent {
-            SignUpScreenUser()
+            SignUpScreenUser(rememberNavController())
         }
     }
 
