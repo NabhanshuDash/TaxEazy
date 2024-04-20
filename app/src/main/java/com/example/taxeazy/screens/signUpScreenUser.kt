@@ -1,5 +1,6 @@
 package com.example.taxeazy.screens
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,11 +18,13 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.taxeazy.app.MainActivity
 import com.example.taxeazy.app.SignUpUser
 import com.example.taxeazy.components.*
@@ -29,9 +32,10 @@ import com.example.taxeazy.models.UserData
 import com.google.firebase.firestore.GeoPoint
 
 @Composable
-fun SignUpScreenUser() {
+fun SignUpScreenUser(
+    context: Context
+) {
     var userData by remember { mutableStateOf(UserData("", "", "", "", "", "", "", emptyList(), emptyList(), emptyList(), emptyList(), GeoPoint(0.0, 0.0))) }
-
     Surface {
         Column(
             modifier = Modifier.padding(16.dp).fillMaxSize()
@@ -100,15 +104,11 @@ fun SignUpScreenUser() {
                 onClick = {
                     // Call registerUser function
                     val signUpUser = SignUpUser()
-                    signUpUser.signUpUser(userData)
+                    signUpUser.signUpUser(userData, context)
                 }
             )
         }
     }
 }
 
-@Preview
-@Composable
-fun SignupScreenPreview() {
-    SignUpScreenUser()
-}
+

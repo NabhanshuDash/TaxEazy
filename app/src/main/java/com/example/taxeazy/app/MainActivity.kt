@@ -33,8 +33,9 @@ class MainActivity : ComponentActivity() {
                 println("Error getting documents $exception")
             }
         setContent {
-            SignUpScreenUser()
+            SignUpScreenUser(context = this@MainActivity)
         }
     }
+
 
 }
