@@ -15,7 +15,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 
 @Composable
-fun ApplicationsScreen(userData: UserData, db: FirebaseFirestore) {
+fun ApplicationsScreen(userData: UserData) {
+
+    val db = FirebaseFirestore.getInstance()
+
     // Obtain an instance of the ApplicationViewModel
     val viewModel: ApplicationViewModel = viewModel()
     val viewModelCa: CAViewModel = viewModel()
@@ -53,7 +56,7 @@ fun ApplicationScreenPreview()
     val mutableStringList = mutableListOf("789456")
     ApplicationsScreen(
         UserData("", "", "", "", "", "", "", mutableStringList, emptyList(), emptyList(), emptyList(), GeoPoint(
-            0.0, 0.0)), FirebaseFirestore.getInstance())
+            0.0, 0.0)))
 }
 
 /**

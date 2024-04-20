@@ -46,13 +46,13 @@ class CAViewModel : ViewModel() {
                 .await()
 
             for (document in querySnapshot.documents) {
-                val name = document.getString("name") ?: ""
-                val uin = document.getString("uin") ?: ""
-                val email = document.getString("email") ?: ""
-                val password = document.getString("password") ?: ""
-                val status = document.getBoolean("status") ?: false
-                val mobileNo = document.getString("mobile") ?: ""
-                val location = document.getGeoPoint("location") ?: GeoPoint(0.0, 0.0)
+                val name = document.data?.get("name") as String
+                val uin = document.data?.get("uin") as String
+                val email = document.data?.get("email") as String
+                val password = document.data?.get("password") as String
+                val status = document.data?.get("status") as Boolean
+                val mobileNo = document.data?.get("mobile") as String
+                val location = document.data?.get("location") as GeoPoint
                 val language = document.getString("language") ?: ""
                 val currentApplication = document.get("aid") as List<String>
                 val notify = document.get("notification") as List<String>

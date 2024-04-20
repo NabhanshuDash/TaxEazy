@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.example.taxeazy.R
+import com.example.taxeazy.screens.CaSelectionScreen
 
 class SearchFragment : Fragment() {
 
@@ -13,6 +15,10 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my_bills, container, false)
+        return ComposeView(requireContext()).apply {
+            setContent {
+                CaSelectionScreen() // Set the caSelectionScreen Composable as the content
+            }
+        }
     }
 }

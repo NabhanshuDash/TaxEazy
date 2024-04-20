@@ -53,7 +53,6 @@ fun createUser(user: UserData, db: FirebaseFirestore) {
         }
 }
 
-
 fun encryptPassword(password: String): String {
     val key = SecretKeySpec("YourSecretKey12345".toByteArray(), "AES")
     val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
