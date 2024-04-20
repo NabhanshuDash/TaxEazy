@@ -172,7 +172,7 @@ class LoginActivity : ComponentActivity() {
     private fun navigateToLandingPage(isCA: Boolean) {
         // Pass the boolean value to the next screen using Intent
         if(isCA) {
-            val navigate = Intent(this@LoginActivity, LandingPageCA::class.java)
+            val navigate = Intent(this@LoginActivity, LandingPageCa::class.java)
             startActivity(navigate)
         }
 
