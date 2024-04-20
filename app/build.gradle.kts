@@ -96,5 +96,6 @@ dependencies {
 
 
 
-
+    implementation ("io.coil-kt:coil-compose:1.4.0")
+    implementation ("dev.chrisbanes.accompanist:accompanist-coil:0.19.0")
 }
