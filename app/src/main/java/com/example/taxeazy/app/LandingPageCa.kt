@@ -5,10 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.taxeazy.R
+import com.example.taxeazy.fragments.CaHomeFragment
 import com.example.taxeazy.fragments.MainPageFragment
-import com.example.taxeazy.fragments.MyApplicationsFragment
-import com.example.taxeazy.fragments.MyBillsFragment
-import com.example.taxeazy.fragments.SearchFragment
+import com.example.taxeazy.fragments.MyClientsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LandingPageCa : AppCompatActivity() {
@@ -24,9 +23,8 @@ class LandingPageCa : AppCompatActivity() {
 
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.home -> replaceFragment(MainPageFragment())
-                R.id.search -> replaceFragment(SearchFragment())
-                R.id.applications -> replaceFragment(MyApplicationsFragment())
+                R.id.homeca -> replaceFragment(CaHomeFragment())
+                R.id.applicationsid -> replaceFragment(MyClientsFragment())
                 else -> {
                 }
             }
