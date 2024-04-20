@@ -47,7 +47,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.taxeazy.R
-import com.example.taxeazy.screens.LoginScreen
 
 @Composable
 fun TextComponent(value: String, fontStyletxt: FontStyle, fweight: FontWeight, size: Int, minheight: Int, colortxt: Color, alignment: TextAlign) {
