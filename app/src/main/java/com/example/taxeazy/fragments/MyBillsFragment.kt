@@ -1,5 +1,7 @@
 package com.example.taxeazy.fragments
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +16,7 @@ import com.example.taxeazy.databinding.FragmentMyBillsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -67,32 +70,46 @@ class MyBillsFragment : Fragment() {
     ) {
         imageUri = it
     }
-
-    private fun uploadImage() {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
-        val storageRef = FirebaseStorage.getInstance().reference.child("images/$uid/$formattedDate/${UUID.randomUUID()}")
-
-        imageUri?.let {
-            storageRef.putFile(it).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    storageRef.downloadUrl.addOnSuccessListener { uri ->
-                        Toast.makeText(requireContext(), "Uploaded Successfully", Toast.LENGTH_SHORT).show()
-                        // Optionally, you can perform any action after successful upload
-                    }.addOnFailureListener { exception ->
-                        Toast.makeText(requireContext(), exception.message, Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    Toast.makeText(requireContext(), task.exception?.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
     private fun initVars() {
         firebaseFirestore = FirebaseFirestore.getInstance()
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = ImageAdapter(mList)
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun uploadImage() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val storageRef = FirebaseStorage.getInstance().reference.child("images/$uid/$formattedDate/${UUID.randomUUID()}")
+
+        imageUri?.let { uri ->
+            val inputStream = requireContext().contentResolver.openInputStream(uri)
+            inputStream?.use { stream ->
+                val bitmap = BitmapFactory.decodeStream(stream)
+
+                // Compress the bitmap
+                val compressedBitmap = compressImage(bitmap)
+
+                // Convert the compressed bitmap to a byte array
+                val baos = ByteArrayOutputStream()
+                compressedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos)
+                val imageData: ByteArray = baos.toByteArray()
+
+                // Upload the compressed image
+                storageRef.putBytes(imageData).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
+                            Toast.makeText(requireContext(), "Uploaded Successfully", Toast.LENGTH_SHORT).show()
+                            // Optionally, you can perform any action after successful upload
+                        }.addOnFailureListener { exception ->
+                            Toast.makeText(requireContext(), exception.message, Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), task.exception?.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
 
     private fun getImages() {
@@ -113,5 +130,31 @@ class MyBillsFragment : Fragment() {
             // Handle any errors with listing files
         }
     }
+
+    private fun compressImage(bitmap: Bitmap): Bitmap {
+        val maxSize = 1024 // Maximum size in kilobytes
+
+        var width = bitmap.width
+        var height = bitmap.height
+
+        // Calculate the ratio to maintain the original aspect ratio
+        val ratio: Double
+        if (width > height) {
+            if (width > maxSize) {
+                ratio = width.toDouble() / maxSize
+                width = maxSize
+                height = (height / ratio).toInt()
+            }
+        } else {
+            if (height > maxSize) {
+                ratio = height.toDouble() / maxSize
+                height = maxSize
+                width = (width / ratio).toInt()
+            }
+        }
+
+        return Bitmap.createScaledBitmap(bitmap, width, height, true)
+    }
+
 
 }
