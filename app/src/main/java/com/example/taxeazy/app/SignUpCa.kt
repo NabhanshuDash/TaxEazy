@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.taxeazy.components.CButton
@@ -97,7 +99,9 @@ class SignUpCa: ComponentActivity() {
                         hint = "Password",
                         value = caData.password,
                         onValueChange = { newPwd -> caData = caData.copy(password = newPwd) },
-                        icon = Icons.Filled.Lock
+                        icon = Icons.Filled.Lock,
+                                visualTransformation = PasswordVisualTransformation(),
+                        leadingIcon = {Icon(Icons.Filled.Lock, contentDescription = "Password") }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     CTextField(

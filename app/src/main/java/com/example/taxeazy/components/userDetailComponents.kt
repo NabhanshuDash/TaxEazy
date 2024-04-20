@@ -143,12 +143,14 @@ fun CTextField(
     hint: String,
     value: String,
     modifier: Modifier = Modifier,
-    icon: ImageVector? = null
+    icon: ImageVector? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    leadingIcon: (@Composable () -> Unit)? = null
 ) {
     Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        icon?.let {
+        leadingIcon?.let {
             Icon(
-                imageVector = icon,
+                imageVector = icon!!,
                 contentDescription = null,
                 modifier = Modifier.padding(end = 8.dp)
             )
@@ -156,6 +158,7 @@ fun CTextField(
         TextField(
             value = value,
             onValueChange = onValueChange,
+            visualTransformation = visualTransformation,
             placeholder = {
                 Text(
                     text = hint,
