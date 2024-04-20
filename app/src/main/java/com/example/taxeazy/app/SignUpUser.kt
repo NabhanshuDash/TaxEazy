@@ -1,12 +1,10 @@
 package com.example.taxeazy.app
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +20,6 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -122,7 +119,7 @@ class SignUpUser : ComponentActivity() {
                                     // Call registerUser function
                                     val signUpUser = SignUpUser()
                                     signUpUser.signUpUser(userData)
-                                    val navigate = Intent(this@SignUpUser, LandingPage::class.java)
+                                    val navigate = Intent(this@SignUpUser, LandingPageUser::class.java)
                                     startActivity(navigate)
                                 }
                             )
@@ -181,7 +178,7 @@ class SignUpUser : ComponentActivity() {
     }
 
     private fun navigateToLandingPage() {
-        val navigate = Intent(this@SignUpUser, LandingPage::class.java)
+        val navigate = Intent(this@SignUpUser, LandingPageUser::class.java)
         startActivity(navigate)
     }
 

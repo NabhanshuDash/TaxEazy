@@ -10,7 +10,7 @@ import com.example.taxeazy.fragments.MyBillsFragment
 import com.example.taxeazy.fragments.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class LandingPage : AppCompatActivity() {
+class LandingPageUser : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
