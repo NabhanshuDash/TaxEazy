@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "313681173273",
+    "firebase_url": "https://taxeazy-f2f4b-default-rtdb.firebaseio.com",
+    "project_id": "taxeazy-f2f4b",
+    "storage_bucket": "taxeazy-f2f4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313681173273:android:d3d30d48ae67de6921c388",
+        "android_client_info": {
+          "package_name": "com.example.taxeazy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlLrcSYrePZiql-PI-NSjnzHsi8_s6rs8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

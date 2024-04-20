@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.gms.google-services")
+    id ("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -39,6 +40,8 @@ android {
     }
     buildFeatures {
         compose = true
+        dataBinding = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -85,6 +88,7 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.2.1")
     implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
     implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.0.0-alpha06")
-
+    implementation ("com.google.android.material:material:1.3.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.0.4")
 
 }
