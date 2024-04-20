@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.taxeazy.components.ApplicationItem
 import com.example.taxeazy.models.ApplicationViewModel
+import com.example.taxeazy.models.CAViewModel
+import com.example.taxeazy.models.CaData
 import com.example.taxeazy.models.UserData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -16,21 +18,28 @@ import com.google.firebase.firestore.GeoPoint
 fun ApplicationsScreen(userData: UserData, db: FirebaseFirestore) {
     // Obtain an instance of the ApplicationViewModel
     val viewModel: ApplicationViewModel = viewModel()
+    val viewModelCa: CAViewModel = viewModel()
 
     // Trigger the data fetching operation when the component is first composed or when userData or db changes
     viewModel.fetchApplicationData(userData, db)
 
     val applicationDataList = viewModel.getApplicationData()
 
+    val caDataList = mutableListOf<CaData>()
+    for(doc in applicationDataList) {
+        viewModelCa.fetchCA(doc.currentCA, db)
+        caDataList.add(viewModelCa.getcadata())
+    }
+
     // Add button in the bottom right corner
     Column (
         modifier = Modifier.fillMaxSize()
     ) {
-        for(data in applicationDataList) {
+        for((k, data) in applicationDataList.withIndex()) {
             Surface(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                    Text(text = data.currentCA)
+                    ApplicationItem(applicationData = data, cadata = caDataList[k])
             }
         }
     }
