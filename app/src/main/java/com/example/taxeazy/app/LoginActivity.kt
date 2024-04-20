@@ -27,7 +27,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taxeazy.app.LandingPage
+import com.example.taxeazy.app.LandingPageUser
 import com.example.taxeazy.components.CTextField
 import com.example.taxeazy.components.GreyButtonComponent
 import com.example.taxeazy.components.TextComponent
@@ -106,7 +106,7 @@ class LoginActivity : ComponentActivity() {
                                                 if (task.isSuccessful) {
                                                     // Login successful
                                                     // Navigate to the next screen or perform actions
-                                                    val navigate = Intent(this@LoginActivity, LandingPage::class.java)
+                                                    val navigate = Intent(this@LoginActivity, LandingPageUser::class.java)
                                                     startActivity(navigate)
                                                 } else {
                                                     // Login failed
@@ -140,7 +140,7 @@ class LoginActivity : ComponentActivity() {
         }
     }
     private fun navigateToLandingPage() {
-        val navigate = Intent(this@LoginActivity, LandingPage::class.java)
+        val navigate = Intent(this@LoginActivity, LandingPageUser::class.java)
         startActivity(navigate)
     }
 
