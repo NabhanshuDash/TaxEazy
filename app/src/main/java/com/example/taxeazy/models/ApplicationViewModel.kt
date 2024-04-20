@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -24,7 +25,7 @@ class ApplicationViewModel : ViewModel() {
     fun getApplicationData(): List<ApplicationData> {
         return applicationDataList
     }
-
+    
     private suspend fun fetchApplications(userData: UserData, db: FirebaseFirestore): List<ApplicationData> {
         val applicationLists: MutableList<ApplicationData> = mutableListOf()
 
@@ -54,8 +55,10 @@ class ApplicationViewModel : ViewModel() {
                 val payment: Boolean = document.data?.get("payment") as Boolean
                 val record = document.data?.get("record").toString()
                 val uid = document.data?.get("uid").toString()
+                val date = document.data?.get("date") as Timestamp
+                val status = document.data?.get("status") as Boolean
 
-                return ApplicationData(current, caid, payment, record, uid)
+                return ApplicationData(current, caid,  status,record, payment,date, uid)
             }
 
             return null

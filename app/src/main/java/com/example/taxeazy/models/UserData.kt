@@ -7,6 +7,8 @@ import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.tasks.await
 import java.util.*
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
 
 data class UserData(
     var username: String,
@@ -29,7 +31,7 @@ fun createUser(user: UserData, db: FirebaseFirestore) {
         "userId" to generateRandomId(),
         "name" to user.username,
         "email" to user.email,
-        "password" to encryptPassword(user.password),
+        "password" to user.password,
         "mobile" to user.mobileNo,
         "aadhaar" to user.aadhaarNo,
         "businessname" to user.businessName,
@@ -51,29 +53,21 @@ fun createUser(user: UserData, db: FirebaseFirestore) {
         }
 }
 
-//suspend fun loginUser(username: String, password: String, db: FirebaseFirestore): Boolean {
-//    try {
-//        val querySnapshot: QuerySnapshot = db.collection("users")
-//            .whereEqualTo("name", username)
-//            .whereEqualTo("password", encryptPassword(password)) // Assuming you have a function to encrypt password
-//            .get()
-//            .await()
-//
-//        // Check if any user with matching credentials exists
-//        if (!querySnapshot.isEmpty) {
-//            // User with matching credentials found
-//            return true
-//        }
-//    } catch (e: Exception) {
-//        println("Error logging in user: $e")
-//    }
-//    // User not found or error occurred
-//    return false
-//}
 
 fun encryptPassword(password: String): String {
-    // Implement password encryption logic
-    return password
+    val key = SecretKeySpec("YourSecretKey12345".toByteArray(), "AES")
+    val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
+    cipher.init(Cipher.ENCRYPT_MODE, key)
+    val encryptedBytes = cipher.doFinal(password.toByteArray())
+    return Base64.getEncoder().encodeToString(encryptedBytes)
+}
+
+fun decryptPassword(encryptedPassword: String): String {
+    val key = SecretKeySpec("YourSecretKey12345".toByteArray(), "AES")
+    val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
+    cipher.init(Cipher.DECRYPT_MODE, key)
+    val decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedPassword))
+    return String(decryptedBytes)
 }
 
 fun generateRandomId(): String {

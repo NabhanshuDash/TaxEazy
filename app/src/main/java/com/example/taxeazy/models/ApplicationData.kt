@@ -1,13 +1,17 @@
 package com.example.taxeazy.models
 
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Date
 
 data class ApplicationData(
     val currentDocs: List<*>?,
     val currentCA: String,
     val status: Boolean,
     val record: String,
-    val payment: String?
+    val payment: Boolean?,
+    val date: Timestamp,
+    val uid: String
 )
 
 fun createApplication(application: ApplicationData , db: FirebaseFirestore){
@@ -18,7 +22,8 @@ fun createApplication(application: ApplicationData , db: FirebaseFirestore){
         "current" to application.currentDocs,
         "payment" to application.payment,
         "record" to application.record,
-        "status" to application.status
+        "status" to application.status,
+        "date" to Timestamp.now()
     )
 
     db.collection("application")
