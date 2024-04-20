@@ -70,6 +70,10 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation("androidx.compose.material3:material3:1.0.0-alpha06")
+
+    implementation(libs.firebase.storage.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -77,4 +81,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
+    implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.0.0-alpha06")
+
+
 }
