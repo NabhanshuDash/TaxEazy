@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="logoutButton" type="id" />
+    <item name="languagetv" type="id" />
+    <item name="languageLabel" type="id" />
+    <item name="nametv" type="id" />
+    <item name="nameLabel" type="id" />
+</resources>
