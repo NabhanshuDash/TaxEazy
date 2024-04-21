@@ -32,7 +32,18 @@ class UserViewModel : ViewModel() {
 
     fun generateFetchUser(uid : String, db: FirebaseFirestore) {
         viewModelScope.launch {
-            currentUser = fetchUser(uid,db) as  UserData
+            currentUser = fetchUser(uid,db) ?: UserData(username = "",
+                email = "",
+                password = "",
+                mobileNo = "",
+                aadhaarNo = "",
+                businessName = "",
+                language = "",
+                applicationId = listOf(),
+                personalStore = listOf(),
+                notify = listOf(),
+                reported = listOf(),
+                location = GeoPoint(0.0, 0.0));
         }
     }
 
