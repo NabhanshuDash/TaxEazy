@@ -50,7 +50,9 @@ class SignUpUser : ComponentActivity() {
                     var userData by remember { mutableStateOf(UserData("", "", "", "", "", "", "", emptyList(), emptyList(), emptyList(), emptyList(), GeoPoint(0.0, 0.0))) }
                     Surface {
                         Column(
-                            modifier = Modifier.padding(16.dp).fillMaxSize()
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .fillMaxSize()
                         ) {
                             TextComponent(
                                 value = "Sign Up",
@@ -66,14 +68,16 @@ class SignUpUser : ComponentActivity() {
                                 hint = "Username",
                                 value = userData.username,
                                 onValueChange = { newName -> userData = userData.copy(username = newName) },
-                                icon = Icons.Filled.Person
+                                icon = Icons.Filled.Person,
+                                leadingIcon = { Icon(Icons.Filled.Person, contentDescription = "Username") }
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                             CTextField(
                                 hint = "Email",
                                 value = userData.email,
                                 onValueChange = { newEmail -> userData = userData.copy(email = newEmail) },
-                                icon = Icons.Filled.Email
+                                icon = Icons.Filled.Email,
+                                leadingIcon = { Icon(Icons.Filled.Email, contentDescription = "Email") }
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                             CTextField(
@@ -89,28 +93,31 @@ class SignUpUser : ComponentActivity() {
                                 hint = "Mobile No",
                                 value = userData.mobileNo,
                                 onValueChange = { newMobile -> userData = userData.copy(mobileNo = newMobile) },
-                                icon = Icons.Filled.Phone
+                                icon = Icons.Filled.Phone,
+                                leadingIcon = { Icon(Icons.Filled.Phone, contentDescription = "Mobile No") }
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                             CTextField(
                                 hint = "Aadhaar No",
                                 value = userData.aadhaarNo,
                                 onValueChange = { newAadhaar -> userData = userData.copy(aadhaarNo = newAadhaar) },
-                                icon = Icons.Filled.CardMembership
+                                icon = Icons.Filled.CardMembership,
+                                leadingIcon = { Icon(Icons.Filled.CardMembership, contentDescription = "Aadhaar No") }
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                             CTextField(
                                 hint = "Business Name",
                                 value = userData.businessName,
                                 onValueChange = { newBname -> userData = userData.copy(businessName = newBname) },
-                                icon = Icons.Filled.Business
+                                icon = Icons.Filled.Business,
+                                leadingIcon = { Icon(Icons.Filled.Business, contentDescription = "Business Name") }
                             )
-                            Spacer(modifier = Modifier.height(16.dp))
                             CTextField(
                                 hint = "Language",
                                 value = userData.language,
                                 onValueChange = { newLang -> userData = userData.copy(language = newLang) },
-                                icon = Icons.Filled.Language
+                                icon = Icons.Filled.Language,
+                                leadingIcon = { Icon(Icons.Filled.Language, contentDescription = "Language") }
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                             CButton(

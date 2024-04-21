@@ -135,7 +135,7 @@ class SignUpCa: ComponentActivity() {
             }
         }
     }
-    fun signUpCa(caData: CaData) {
+    private fun signUpCa(caData: CaData) {
         // Validate CA data before proceeding
         if (!isValidCaData(caData)) {
             println("Invalid CA data provided")
@@ -173,6 +173,7 @@ class SignUpCa: ComponentActivity() {
                 showError("An unknown error occurred. Please try again.")
             }
     }
+
 
     private fun isValidCaData(caData: CaData): Boolean {
         // Implement your validation logic here
