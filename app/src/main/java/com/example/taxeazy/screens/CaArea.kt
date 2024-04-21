@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.taxeazy.models.ApplicationData
 import com.example.taxeazy.models.ApplicationViewModel
+import com.example.taxeazy.models.CAViewModel
 import com.example.taxeazy.models.CaData
 import com.example.taxeazy.models.UserViewModel
 import com.google.firebase.Timestamp
@@ -22,6 +23,7 @@ fun CaArea(cadata: CaData) {
     val viewModel : ApplicationViewModel = viewModel()
     val auth = FirebaseAuth.getInstance()
     val viewModel1 : UserViewModel = viewModel()
+    val viewModel2 : CAViewModel = viewModel()
 
     Column(modifier = Modifier.padding(16.dp)) {
         Text(text = "Username: ${cadata.username}")
@@ -45,7 +47,7 @@ fun CaArea(cadata: CaData) {
         Text(text = "Reported: ${cadata.reported.joinToString(", ")}")
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {
-            contactMyCA(cadata, viewModel, auth.currentUser, viewModel1)
+            contactMyCA(cadata, viewModel, auth.currentUser, viewModel1, viewModel2)
         }) {
             Text(text = "Contact CA")
         }
@@ -55,7 +57,7 @@ fun CaArea(cadata: CaData) {
     }
 }
 
-fun contactMyCA(caData: CaData, viewModel: ApplicationViewModel, currentUser: FirebaseUser?, viewModel1: UserViewModel) {
+fun contactMyCA(caData: CaData, viewModel: ApplicationViewModel, currentUser: FirebaseUser?, viewModel1: UserViewModel, viewModel2 : CAViewModel) {
 
     viewModel.createApplication(ApplicationData(currentDocs = emptyList(), currentCA = caData.uid, status = false, record = "", payment = false, date = Timestamp.now(), uid = "", userId = currentUser?.uid.toString()), FirebaseFirestore.getInstance())
     val createdApplicationId = viewModel.getcreatedApplicationId()
@@ -63,5 +65,7 @@ fun contactMyCA(caData: CaData, viewModel: ApplicationViewModel, currentUser: Fi
         viewModel1.addApplicationIdToUser(createdApplicationId,
             it, FirebaseFirestore.getInstance())
     }
+
+    viewModel2.addApplicationIdToCurrentCA(createdApplicationId, FirebaseFirestore.getInstance(), caData.uid)
 
 }

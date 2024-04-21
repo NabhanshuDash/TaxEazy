@@ -57,10 +57,10 @@ fun CaSelectionScreen() {
     viewModel.fetchCAList(db)
     val caDataList = viewModel.getcalist()
 
-    var (isCaDetailsSelected, setIsCaDetailsSelected) = remember {
+    val (isCaDetailsSelected, setIsCaDetailsSelected) = remember {
         mutableStateOf(false)
     }
-    var (selectedCA, setSelectedCA) = remember {
+    val (selectedCA, setSelectedCA) = remember {
         mutableStateOf(CaData("","", "", "", "", false, "", GeoPoint(0.0, 0.0), "", emptyList(), emptyList(), emptyList()))
     }
 

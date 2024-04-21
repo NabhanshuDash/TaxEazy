@@ -2,9 +2,14 @@ package com.example.taxeazy.screens
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.taxeazy.components.ApplicationItem
 import com.example.taxeazy.models.ApplicationViewModel
@@ -36,17 +41,33 @@ fun ApplicationsScreen(userData: UserData) {
     }
 
     // Add button in the bottom right corner
-    Column (
-        modifier = Modifier.fillMaxSize()
+    LazyColumn(
+        modifier = Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(16.dp)
     ) {
-        for((k, data) in applicationDataList.withIndex()) {
+        item {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(vertical = 25.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "\uD83C\uDF3F  Your Applications",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        }
+        items(applicationDataList.size) { k ->
             Surface(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                    ApplicationItem(applicationData = data, cadata = caDataList[k])
+                ApplicationItem(applicationData = applicationDataList[k], cadata = caDataList[k])
             }
         }
     }
+
 }
 
 
@@ -71,14 +92,15 @@ fun ApplicationsScreen(caData: CaData) {
     }
 
     // Add button in the bottom right corner
-    Column (
-        modifier = Modifier.fillMaxSize()
+    LazyColumn (
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        for((k, data) in applicationDataList.withIndex()) {
+        items(applicationDataList.size) {k ->
             Surface(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                ApplicationItem(applicationData = data, userData = userDataList[k])
+                ApplicationItem(applicationData = applicationDataList[k], userData = userDataList[k])
             }
         }
     }
@@ -90,6 +112,6 @@ fun ApplicationScreenPreview()
 {
     val mutableStringList = mutableListOf("789456")
     ApplicationsScreen(
-        UserData("","", "", "", "", "", "", "", mutableStringList, emptyList(), emptyList(), emptyList(), GeoPoint(
+        UserData("","", "", "", "", "", "", "", mutableStringList, listOf("9f2637c9-2f8a-4b07-bbb7-1442983fa277", 	"835197c1-de21-4b1f-abf8-f6f7ae41a0f1"), emptyList(), emptyList(), GeoPoint(
             0.0, 0.0)))
 }

@@ -32,7 +32,7 @@ class ApplicationViewModel : ViewModel() {
 
     fun fetchSingleApplicationData(uid : String, db : FirebaseFirestore) {
         viewModelScope.launch {
-            singleApplicationData = fetchApplicationData(uid, db) as ApplicationData
+            singleApplicationData = fetchApplicationData5(uid, db) as ApplicationData
         }
     }
 
@@ -46,7 +46,7 @@ class ApplicationViewModel : ViewModel() {
         // Iterate over the list of app IDs in userData
         for (appId in userData.applicationId) {
             // Fetch application data for each app ID and add it to the list
-            val applicationData = fetchApplicationData(appId, db)
+            val applicationData = fetchApplicationData5(appId, db)
             if (applicationData != null) {
                 applicationLists.add(applicationData)
             }
@@ -55,7 +55,7 @@ class ApplicationViewModel : ViewModel() {
         return applicationLists
     }
 
-    private suspend fun fetchApplicationData(appId: String, db: FirebaseFirestore): ApplicationData? {
+    private suspend fun fetchApplicationData5(appId: String, db: FirebaseFirestore): ApplicationData? {
         try {
             val querySnapshot = db.collection("application")
                 .whereEqualTo("uid", appId)

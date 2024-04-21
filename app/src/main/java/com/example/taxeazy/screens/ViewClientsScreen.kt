@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 
 @Composable
-fun ViewClientsScreen(userData: UserData, applicationData: ApplicationData) {
+fun ViewClientsScreen(userData: UserData) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -33,11 +33,11 @@ fun ViewClientsScreen(userData: UserData, applicationData: ApplicationData) {
                 text = "Client Name: ${userData.username}",
                 modifier = Modifier.fillMaxWidth(),
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Status: ${applicationData.status}",
-                modifier = Modifier.fillMaxWidth(),
-            )
+//            Spacer(modifier = Modifier.height(8.dp))
+//            Text(
+//                text = "Status: ${applicationData.status}",
+//                modifier = Modifier.fillMaxWidth(),
+//            )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "Bussiness Name: ${userData.businessName}",
@@ -66,7 +66,8 @@ fun ClientViewScreen(caData: CaData) {
         items(caData.clients.size) { index ->
             viewModel.generateFetchUser(caData.clients.get(index), db)
             viewModel1.fetchSingleApplicationData(caData.currentApplication.get(index), db)
-            ViewClientsScreen(viewModel.searchUser(), viewModel1.getsingleApplicationData())
+            ViewClientsScreen(viewModel.searchUser())
+            // , viewModel1.getsingleApplicationData()
         }
     }
 }

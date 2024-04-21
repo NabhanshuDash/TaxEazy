@@ -23,7 +23,7 @@ class MyApplicationsFragment : Fragment() {
     ): View? {
         return ComposeView(requireContext()).apply {
                 if(!checkIfCA(FirebaseAuth.getInstance().currentUser?.uid.toString())){
-                    var uid = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().currentUser?.uid.toString()).get().addOnSuccessListener { documentSnapshot ->
+                    FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().currentUser?.uid.toString()).get().addOnSuccessListener { documentSnapshot ->
                         if (documentSnapshot.exists()) {
                             val userId = documentSnapshot.getString("uid")
                             if (userId != null) {

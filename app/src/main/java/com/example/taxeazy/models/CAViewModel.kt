@@ -87,7 +87,7 @@ class CAViewModel : ViewModel() {
             val password = document.data?.get("password") as? String ?: ""
             val status = document.data?.get("status") as? Boolean ?: false
             val mobileNo = document.data?.get("mobileNo") as? String ?: ""
-            val location = document.data?.get("location") as GeoPoint
+            val location = document.data?.get("location")  ?: GeoPoint(0.0,0.0)
             val language = document.data?.get("language") as? String ?: ""
             val currentApplication = (document.data?.get("currentApplication") as? List<String>) ?: emptyList()
             val notify = (document.data?.get("notify") as? List<String>) ?: emptyList()
@@ -95,7 +95,7 @@ class CAViewModel : ViewModel() {
             val clients = (document.data?.get("clients") as? List<String>) ?: emptyList()
 
 
-            val caData = CaData(uid, username, uin, email, password, status, mobileNo, location, language, currentApplication, notify, reported, clients)
+            val caData = CaData(uid, username, uin, email, password, status, mobileNo, location as GeoPoint, language, currentApplication, notify, reported, clients)
             caDataList.add(caData)
         }
 
