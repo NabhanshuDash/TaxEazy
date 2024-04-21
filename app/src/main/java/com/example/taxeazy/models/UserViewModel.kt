@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import kotlinx.coroutines.launch
@@ -69,6 +70,19 @@ class UserViewModel : ViewModel() {
         } catch (e: Exception) {
             println("Error fetching user data: $e")
             return null
+        }
+    }
+
+    fun addApplicationIdToUser(appId:String, uid: String, db : FirebaseFirestore) {
+        viewModelScope.launch {
+            try {
+                db.collection("users").document(uid)
+                    .update("applicationId", FieldValue.arrayUnion(appId))
+                    .await()
+                println("Application ID added to the current CA successfully.")
+            } catch (e: Exception) {
+                println("Error adding Application ID to the current CA: $e")
+            }
         }
     }
 

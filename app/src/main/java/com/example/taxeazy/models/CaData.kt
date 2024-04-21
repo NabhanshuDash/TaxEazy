@@ -9,6 +9,7 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 data class CaData (
+    val uid: String,
     val username: String,
     val uin: String,
     val email: String,
@@ -67,7 +68,7 @@ suspend fun getCAList(db: FirebaseFirestore): List<CaData> {
         val language = document["language"] as String
         val status = document["status"] as Boolean
 
-        val ca = CaData(caid, name,"","",status,"", location,language, emptyList(), emptyList(),
+        val ca = CaData(caid, name,"","", "", status,"", location,language, emptyList(), emptyList(),
             emptyList())
         caList.add(ca)
     }

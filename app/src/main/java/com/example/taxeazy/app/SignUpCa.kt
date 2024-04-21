@@ -47,7 +47,7 @@ class SignUpCa: ComponentActivity() {
         setContent {
             var caData by remember {
                 mutableStateOf(
-                    CaData(
+                    CaData("",
                         "", "", "", "", true, "", GeoPoint(0.0, 0.0), "",
                         emptyList(), emptyList(), emptyList()
                     )
