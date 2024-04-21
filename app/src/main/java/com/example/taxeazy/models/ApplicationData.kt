@@ -11,5 +11,6 @@ data class ApplicationData(
     val record: String,
     val payment: Boolean?,
     val date: Timestamp,
-    val uid: String
+    val uid: String,
+    val userId: String
 )

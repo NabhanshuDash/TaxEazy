@@ -61,7 +61,7 @@ fun CaSelectionScreen() {
         mutableStateOf(false)
     }
     var (selectedCA, setSelectedCA) = remember {
-        mutableStateOf(CaData("", "", "", "", false, "", GeoPoint(0.0, 0.0), "", emptyList(), emptyList(), emptyList()))
+        mutableStateOf(CaData("","", "", "", "", false, "", GeoPoint(0.0, 0.0), "", emptyList(), emptyList(), emptyList()))
     }
 
     if(isCaDetailsSelected) {

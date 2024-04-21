@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -14,8 +15,9 @@ import kotlinx.coroutines.tasks.await
 class ApplicationViewModel : ViewModel() {
     // MutableState to hold the fetched application data
     var applicationDataList by mutableStateOf<List<ApplicationData>>(emptyList())
-    var singleApplicationData by mutableStateOf<ApplicationData>(ApplicationData(emptyList(), "", false, "", false, Timestamp.now(), ""))
+    var singleApplicationData by mutableStateOf<ApplicationData>(ApplicationData(emptyList(), "", false, "", false, Timestamp.now(), "", ""))
     var createdApplicationId by mutableStateOf<String>("")
+    var applicationDataListCA by mutableStateOf<List<ApplicationData>>(emptyList())
 
     fun fetchApplicationData(userData: UserData, db: FirebaseFirestore) {
         // Fetch application data using a coroutine scope
@@ -69,8 +71,9 @@ class ApplicationViewModel : ViewModel() {
                 val uid = document.data?.get("uid").toString()
                 val date = document.data?.get("date") as Timestamp
                 val status = document.data?.get("status") as Boolean
+                val userId = document.data?.get("userId") as String
 
-                return ApplicationData(current, caid,  status,record, payment,date, uid)
+                return ApplicationData(current, caid,  status,record, payment,date, uid, userId)
             }
 
             return null
@@ -89,14 +92,15 @@ class ApplicationViewModel : ViewModel() {
             "payment" to application.payment,
             "record" to application.record,
             "status" to application.status,
-            "date" to Timestamp.now()
+            "date" to Timestamp.now(),
+            "userId" to FirebaseAuth.getInstance().currentUser?.uid.toString()
         )
 
         db.collection("application")
             .add(data)
             .addOnSuccessListener { documentReference ->
                 println("Application added with ID: ${documentReference.id}")
-                createdApplicationId = data.get("uid").toString()
+                createdApplicationId = data["uid"].toString()
             }
             .addOnFailureListener { e ->
                 println("Error adding user application: $e")
@@ -105,6 +109,55 @@ class ApplicationViewModel : ViewModel() {
 
     fun getcreatedApplicationId(): String {
         return createdApplicationId
+    }
+
+    fun fetchApplicationDataCA(caData: CaData, db: FirebaseFirestore) {
+        viewModelScope.launch {
+            val applicationLists: MutableList<ApplicationData> = mutableListOf()
+
+            // Iterate over the list of app IDs in userData
+            for (appId in caData.currentApplication) {
+                // Fetch application data for each app ID and add it to the list
+                val applicationData = fetchApplicationResourceCA(db, appId)
+                if (applicationData != null) {
+                    applicationLists.add(applicationData)
+                }
+            }
+
+            applicationDataListCA = applicationLists
+        }
+    }
+
+    private suspend fun fetchApplicationResourceCA(db: FirebaseFirestore, appId: String): ApplicationData? {
+        try {
+            val querySnapshot = db.collection("application")
+                .whereEqualTo("uid", appId)
+                .limit(1)
+                .get()
+                .await()
+
+            for (document in querySnapshot.documents) {
+                val caid = document.data?.get("caid").toString()
+                val current = document.data?.get("current") as List<String>
+                val payment: Boolean = document.data?.get("payment") as Boolean
+                val record = document.data?.get("record").toString()
+                val uid = document.data?.get("uid").toString()
+                val date = document.data?.get("date") as Timestamp
+                val status = document.data?.get("status") as Boolean
+                val userId = document.data?.get("userId") as String
+
+                return ApplicationData(current, caid,  status,record, payment,date, uid, userId)
+            }
+
+            return null
+        } catch (e: Exception) {
+            println("Error fetching application data: $e")
+            return null
+        }
+    }
+
+    fun getapplicationDataCA(): List<ApplicationData> {
+        return applicationDataListCA
     }
 
 }

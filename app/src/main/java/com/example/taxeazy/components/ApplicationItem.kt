@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.taxeazy.models.ApplicationData
 import com.example.taxeazy.models.CaData
+import com.example.taxeazy.models.UserData
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import java.text.SimpleDateFormat
@@ -61,6 +62,41 @@ fun ApplicationItem(applicationData: ApplicationData, cadata: CaData) {
     }
 }
 
+@Composable
+fun ApplicationItem(applicationData: ApplicationData, userData: UserData) {
+    val elevation = 4.dp
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        shape = RoundedCornerShape(8.dp)
+
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            val formattedDate = formatDate(applicationData.date.toDate())
+            Text(
+                text = "Application Date: $formattedDate",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Start
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "CA's Name: ${userData.username}",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Start
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Status: ${applicationData.status}",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Start
+            )
+        }
+    }
+}
+
 @Preview
 @Composable
 fun ApplicationItemPreview(){
@@ -72,10 +108,12 @@ fun ApplicationItemPreview(){
         record = "/collection/docs",
         status = true,
         uid = "789456",
-        date = Timestamp.now()
+        date = Timestamp.now(),
+        userId = ""
     )
 
     val caData = CaData(
+        uid = "",
         username = "John Doe",
         uin = "1234567890",
         email = "john.doe@example.com",

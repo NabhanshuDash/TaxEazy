@@ -11,6 +11,7 @@ import com.example.taxeazy.models.ApplicationViewModel
 import com.example.taxeazy.models.CAViewModel
 import com.example.taxeazy.models.CaData
 import com.example.taxeazy.models.UserData
+import com.example.taxeazy.models.UserViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 
@@ -49,6 +50,40 @@ fun ApplicationsScreen(userData: UserData) {
 }
 
 
+@Composable
+fun ApplicationsScreen(caData: CaData) {
+
+    val db = FirebaseFirestore.getInstance()
+
+    // Obtain an instance of the ApplicationViewModel
+    val viewModel: ApplicationViewModel = viewModel()
+    val viewModelUser: UserViewModel = viewModel()
+
+    // Trigger the data fetching operation when the component is first composed or when userData or db changes
+    viewModel.fetchApplicationDataCA(caData, db)
+
+    val applicationDataList = viewModel.getapplicationDataCA()
+
+    val userDataList = mutableListOf<UserData>()
+    for(doc in applicationDataList) {
+        viewModelUser.generateFetchUser(doc.userId, db)
+        userDataList.add(viewModelUser.searchUser())
+    }
+
+    // Add button in the bottom right corner
+    Column (
+        modifier = Modifier.fillMaxSize()
+    ) {
+        for((k, data) in applicationDataList.withIndex()) {
+            Surface(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                ApplicationItem(applicationData = data, userData = userDataList[k])
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 fun ApplicationScreenPreview()
@@ -58,21 +93,3 @@ fun ApplicationScreenPreview()
         UserData("", "", "", "", "", "", "", mutableStringList, emptyList(), emptyList(), emptyList(), GeoPoint(
             0.0, 0.0)))
 }
-
-/**
- * Add button for search CAs
- * */
-//FloatingActionButton(
-//onClick = {
-//    // Handle add button click action
-//},
-//modifier = Modifier
-//.padding(16.dp),
-//contentColor = MaterialTheme.colorScheme.onPrimary,
-//elevation = FloatingActionButtonDefaults.elevation()
-//) {
-//    Icon(
-//        imageVector = Icons.Filled.Add,
-//        contentDescription = "Add"
-//    )
-//}

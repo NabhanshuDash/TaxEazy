@@ -75,6 +75,6 @@ fun ClientViewScreen(caData: CaData) {
 @Composable
 fun ViewClientsPreview(){
 
-    ClientViewScreen(CaData("", "", "", "", false, "", GeoPoint(0.0, 0.0), "", emptyList(), emptyList(), emptyList(), emptyList()))
+    ClientViewScreen(CaData("","", "", "", "", false, "", GeoPoint(0.0, 0.0), "", emptyList(), emptyList(), emptyList(), emptyList()))
 
 }

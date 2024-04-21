@@ -57,7 +57,7 @@ fun CaArea(cadata: CaData) {
 
 fun contactMyCA(caData: CaData, viewModel: ApplicationViewModel, currentUser: FirebaseUser?, viewModel1: UserViewModel) {
 
-    viewModel.createApplication(ApplicationData(currentDocs = emptyList(), currentCA = caData.uid, status = false, record = "", payment = false, date = Timestamp.now(), uid = ""), FirebaseFirestore.getInstance())
+    viewModel.createApplication(ApplicationData(currentDocs = emptyList(), currentCA = caData.uid, status = false, record = "", payment = false, date = Timestamp.now(), uid = "", userId = currentUser?.uid.toString()), FirebaseFirestore.getInstance())
     val createdApplicationId = viewModel.getcreatedApplicationId()
     currentUser?.uid?.let {
         viewModel1.addApplicationIdToUser(createdApplicationId,
