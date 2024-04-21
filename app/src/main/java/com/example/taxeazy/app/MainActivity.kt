@@ -35,40 +35,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-                Surface(
-                    Modifier
-                        .fillMaxSize()
-                        .padding(16.dp)
-                ){
-                    CButton(
-                        text = "Click",
-                        onClick = {
-                            val navigate = Intent(this@MainActivity, SignUpUser::class.java)
-                            startActivity(navigate)
-                        }
-                    )
-                }
+            Surface(
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                CButton(
+                    text = "Click",
+                    onClick = {
+                        val navigate = Intent(this@MainActivity, SignUpUser::class.java)
+                        startActivity(navigate)
+                    }
+                )
+            }
         }
-        FirebaseApp.initializeApp(this)
-        FirebaseFirestore.setLoggingEnabled(true)
-
-        val db = FirebaseFirestore.getInstance()
-
-        val userId = "123456789"
-
-        val query = db.collection("users")
-            .whereEqualTo("userId", userId)
-            .limit(1)
-
-        query.get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    println("${document.id} => ${document.data}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                println("Error getting documents $exception")
-            }
-
     }
 }

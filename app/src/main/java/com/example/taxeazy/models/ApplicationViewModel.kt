@@ -15,6 +15,7 @@ class ApplicationViewModel : ViewModel() {
     // MutableState to hold the fetched application data
     var applicationDataList by mutableStateOf<List<ApplicationData>>(emptyList())
     var singleApplicationData by mutableStateOf<ApplicationData>(ApplicationData(emptyList(), "", false, "", false, Timestamp.now(), ""))
+    var createdApplicationId by mutableStateOf<String>("")
 
     fun fetchApplicationData(userData: UserData, db: FirebaseFirestore) {
         // Fetch application data using a coroutine scope
@@ -78,4 +79,32 @@ class ApplicationViewModel : ViewModel() {
             return null
         }
     }
+
+    fun createApplication(application: ApplicationData , db: FirebaseFirestore) {
+
+        val data = mapOf(
+            "uid" to generateRandomId(),
+            "caid" to application.currentCA,
+            "current" to application.currentDocs,
+            "payment" to application.payment,
+            "record" to application.record,
+            "status" to application.status,
+            "date" to Timestamp.now()
+        )
+
+        db.collection("application")
+            .add(data)
+            .addOnSuccessListener { documentReference ->
+                println("Application added with ID: ${documentReference.id}")
+                createdApplicationId = data.get("uid").toString()
+            }
+            .addOnFailureListener { e ->
+                println("Error adding user application: $e")
+            }
+    }
+
+    fun getcreatedApplicationId(): String {
+        return createdApplicationId
+    }
+
 }

@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import kotlinx.coroutines.tasks.await
 class CAViewModel : ViewModel() {
     // MutableState to hold the fetched CA data
 
-    var cadata by mutableStateOf<CaData>(CaData("", "", "", "", false, "", GeoPoint(0.0, 0.0), "", emptyList(), emptyList(), emptyList(), emptyList()))
+    var cadata by mutableStateOf<CaData>(CaData("", "", "", "", "", false, "", GeoPoint(0.0, 0.0), "", emptyList(), emptyList(), emptyList(), emptyList()))
     var calist by mutableStateOf<List<CaData>>(emptyList())
 
 
@@ -46,6 +47,7 @@ class CAViewModel : ViewModel() {
                 .await()
 
             for (document in querySnapshot.documents) {
+                val uid = document.data?.get("caid") as String
                 val name = document.data?.get("name") as String
                 val uin = document.data?.get("uin") as String
                 val email = document.data?.get("email") as String
@@ -59,7 +61,7 @@ class CAViewModel : ViewModel() {
                 val reported = document.get("reported") as List<String>
                 val clients = document.get("clients") as List<String>
 
-                return CaData(name, uin, email, password, status, mobileNo, location, language, currentApplication, notify, reported, clients)
+                return CaData(uid, name, uin, email, password, status, mobileNo, location, language, currentApplication, notify, reported, clients)
             }
 
             return cadata
@@ -77,6 +79,7 @@ class CAViewModel : ViewModel() {
         val caDataList = mutableListOf<CaData>()
 
         for (document in querySnapshot.documents) {
+            val uid = document.data?.get("caid") as? String ?: ""
             val username = document.data?.get("username") as? String ?: ""
             val uin = document.data?.get("uin") as? String ?: ""
             val email = document.data?.get("email") as? String ?: ""
@@ -91,11 +94,24 @@ class CAViewModel : ViewModel() {
             val clients = (document.data?.get("clients") as? List<String>) ?: emptyList()
 
 
-            val caData = CaData(username, uin, email, password, status, mobileNo, location, language, currentApplication, notify, reported, clients)
+            val caData = CaData(uid, username, uin, email, password, status, mobileNo, location, language, currentApplication, notify, reported, clients)
             caDataList.add(caData)
         }
 
         return caDataList
+    }
+
+    fun addApplicationIdToCurrentCA(appId: String, db: FirebaseFirestore, uid: String) {
+        viewModelScope.launch {
+            try {
+                db.collection("ca").document(uid)
+                    .update("aid", FieldValue.arrayUnion(appId))
+                    .await()
+                println("Application ID added to the current CA successfully.")
+            } catch (e: Exception) {
+                println("Error adding Application ID to the current CA: $e")
+            }
+        }
     }
 
 }
