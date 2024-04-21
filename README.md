@@ -42,7 +42,7 @@ With TaxEazy, tax management and auditing have never been easier. Join our platf
 
 
 ## Contributors:
-Team Name: Trilluminati FNG (ID 76)
+Team Name: Trilluminati FNGR
 
 * [Mirga Farhaan Baig](https://github.com/fourhaan)
 * [Gantavya Rohatgi](https://github.com/gantavyarohatgi)
