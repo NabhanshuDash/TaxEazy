@@ -32,7 +32,11 @@
         <activity
             android:name=".app.LandingPageUser"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".app.LandingPageCa"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".app.MainActivity"
             android:exported="false"

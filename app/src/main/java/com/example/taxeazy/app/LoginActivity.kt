@@ -70,7 +70,9 @@ class LoginActivity : ComponentActivity() {
                         value = email,
                         onValueChange = { email = it },
                         hint = "Email",
-                        icon = Icons.Filled.Person
+                        icon = Icons.Filled.Person,
+                        leadingIcon = {Icon(Icons.Filled.Person, contentDescription = "Password") }
+
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))

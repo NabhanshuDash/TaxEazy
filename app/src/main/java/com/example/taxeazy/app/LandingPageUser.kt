@@ -8,6 +8,7 @@ import com.example.taxeazy.fragments.MainPageFragment
 import com.example.taxeazy.fragments.MyApplicationsFragment
 import com.example.taxeazy.fragments.MyBillsFragment
 import com.example.taxeazy.fragments.SearchFragment
+import com.example.taxeazy.fragments.UserProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LandingPageUser : AppCompatActivity() {
@@ -27,6 +28,7 @@ class LandingPageUser : AppCompatActivity() {
                 R.id.bills -> replaceFragment(MyBillsFragment())
                 R.id.search -> replaceFragment(SearchFragment())
                 R.id.applications -> replaceFragment(MyApplicationsFragment())
+                R.id.profile -> replaceFragment(UserProfileFragment())
                 else -> {
                 }
             }
