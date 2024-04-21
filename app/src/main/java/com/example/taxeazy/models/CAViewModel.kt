@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -110,6 +111,14 @@ class CAViewModel : ViewModel() {
                 println("Application ID added to the current CA successfully.")
             } catch (e: Exception) {
                 println("Error adding Application ID to the current CA: $e")
+            }
+
+            try {
+                db.collection("ca").document(uid)
+                    .update("clients", FieldValue.arrayUnion(FirebaseAuth.getInstance().currentUser?.uid.toString()))
+                    .await()
+            } catch (e: Exception) {
+                println("Error adding Current UserID to clintId")
             }
         }
     }

@@ -11,6 +11,7 @@ import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 
 data class UserData(
+    var uid: String,
     var username: String,
     var email: String,
     val password: String,
@@ -28,7 +29,7 @@ data class UserData(
 fun createUser(user: UserData, db: FirebaseFirestore) {
 
     val data = mapOf(
-        "userId" to generateRandomId(),
+        "uid" to generateRandomId(),
         "name" to user.username,
         "email" to user.email,
         "password" to user.password,

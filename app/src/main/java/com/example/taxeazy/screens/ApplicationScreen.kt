@@ -90,6 +90,6 @@ fun ApplicationScreenPreview()
 {
     val mutableStringList = mutableListOf("789456")
     ApplicationsScreen(
-        UserData("", "", "", "", "", "", "", mutableStringList, emptyList(), emptyList(), emptyList(), GeoPoint(
+        UserData("","", "", "", "", "", "", "", mutableStringList, emptyList(), emptyList(), emptyList(), GeoPoint(
             0.0, 0.0)))
 }

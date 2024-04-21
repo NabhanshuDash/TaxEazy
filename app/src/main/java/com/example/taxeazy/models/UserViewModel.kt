@@ -14,6 +14,7 @@ import kotlinx.coroutines.tasks.await
 class UserViewModel : ViewModel() {
 
     var currentUser by mutableStateOf<UserData>(UserData(
+        "",
         username = "",
         email = "",
         password = "",
@@ -32,7 +33,9 @@ class UserViewModel : ViewModel() {
 
     fun generateFetchUser(uid : String, db: FirebaseFirestore) {
         viewModelScope.launch {
-            currentUser = fetchUser(uid,db) ?: UserData(username = "",
+            currentUser = fetchUser(uid,db) ?: UserData(
+                uid = "",
+                username = "",
                 email = "",
                 password = "",
                 mobileNo = "",
@@ -60,6 +63,7 @@ class UserViewModel : ViewModel() {
                 .await()
 
             for (document in querySnapshot.documents) {
+                val uid = document.data?.get("uid").toString()
                 val username = document.getString("name") ?: ""
                 val email = document.getString("email") ?: ""
                 val password = document.getString("password") ?: ""
@@ -74,7 +78,7 @@ class UserViewModel : ViewModel() {
                 val reported = document.get("report") as? List<String> ?: emptyList()
                 val personalStore = document.get("storage") as? List<String> ?: emptyList()
 
-                return UserData(username, email, password, mobileNo, aadhaarNo, businessName, language, applicationId, notify, reported, personalStore, location)
+                return UserData(uid, username, email, password, mobileNo, aadhaarNo, businessName, language, applicationId, notify, reported, personalStore, location)
             }
 
             return null

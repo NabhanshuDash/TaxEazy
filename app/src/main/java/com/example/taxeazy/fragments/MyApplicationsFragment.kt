@@ -21,22 +21,46 @@ class MyApplicationsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
         return ComposeView(requireContext()).apply {
-            setContent {
-                if(!checkIfCA(uid)){
-                    val viewModel: UserViewModel = viewModel()
-                    viewModel.generateFetchUser(uid, FirebaseFirestore.getInstance())
-                    val userData: UserData = viewModel.searchUser()
-                    ApplicationsScreen(userData)
+                if(!checkIfCA(FirebaseAuth.getInstance().currentUser?.uid.toString())){
+                    var uid = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().currentUser?.uid.toString()).get().addOnSuccessListener { documentSnapshot ->
+                        if (documentSnapshot.exists()) {
+                            val userId = documentSnapshot.getString("uid")
+                            if (userId != null) {
+                                // Use userId here
+                                println("User ID: $userId")
+                                setContent {
+                                    val viewModel: UserViewModel = viewModel()
+                                    viewModel.generateFetchUser(userId, FirebaseFirestore.getInstance())
+                                    val userData: UserData = viewModel.searchUser()
+                                    ApplicationsScreen(userData)
+                                }
+                            } else {
+                                println("User ID not found in the document.")
+                            }
+                        } else {
+                            println("User document does not exist.")
+                        } }
                 }
-                else {
-                    val viewModel: CAViewModel = viewModel()
-                    viewModel.fetchCA(uid, FirebaseFirestore.getInstance())
-                    val caData: CaData = viewModel.getcadata()
-                    ApplicationsScreen(caData)
+                else {var uid = FirebaseFirestore.getInstance().collection("ca").document(FirebaseAuth.getInstance().currentUser?.uid.toString()).get().addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        val userId = documentSnapshot.getString("uid")
+                        if (userId != null) {
+                            // Use userId here
+                            println("User ID: $userId")
+                            setContent {
+                                val viewModel: CAViewModel = viewModel()
+                                viewModel.fetchCA(userId, FirebaseFirestore.getInstance())
+                                val caData: CaData = viewModel.getcadata()
+                                ApplicationsScreen(caData)
+                            }
+                        } else {
+                            println("User ID not found in the document.")
+                        }
+                    } else {
+                        println("User document does not exist.")
+                    } }
                 }
-            }
         }
 
     }
