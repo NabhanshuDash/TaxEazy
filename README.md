@@ -1,6 +1,6 @@
 <h1 align="center">Hack36 Project - TaxEazy </h1>
 
-# TaxEaze 
+# TaxEazy 
 
 TaxEaze is your ultimate solution for hassle-free tax management, catering specifically to the needs of small-scale businesses and individuals. Our mobile application seamlessly connects clients with chartered accountants, streamlining the tax filing process and ensuring compliance with regulatory requirements. Whether you're a business owner seeking professional assistance or a chartered accountant looking to expand your client base, TaxEaze offers a comprehensive platform to meet your needs.
 
@@ -38,7 +38,7 @@ TaxEaze is your ultimate solution for hassle-free tax management, catering speci
 
 - 🌍 **Location-based Matching:** Find clients and chartered accountants nearby using geolocation. TaxEaze leverages location-based matching algorithms to facilitate local partnerships and collaborations.
 
-With TaxEaze, tax management and auditing have never been easier. Join our platform today and experience the convenience of simplified tax management firsthand!
+With TaxEazy, tax management and auditing have never been easier. Join our platform today and experience the convenience of simplified tax management firsthand!
 
 
 ## Contributors:
