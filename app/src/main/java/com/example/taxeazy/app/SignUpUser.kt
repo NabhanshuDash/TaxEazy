@@ -112,6 +112,7 @@ class SignUpUser : ComponentActivity() {
                                 icon = Icons.Filled.Business,
                                 leadingIcon = { Icon(Icons.Filled.Business, contentDescription = "Business Name") }
                             )
+                            Spacer(modifier = Modifier.height(16.dp))
                             CTextField(
                                 hint = "Language",
                                 value = userData.language,

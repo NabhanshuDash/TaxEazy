@@ -16,6 +16,7 @@ import com.example.taxeazy.models.ApplicationData
 import com.example.taxeazy.models.CaData
 import com.example.taxeazy.models.UserData
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.GeoPoint
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -124,7 +125,7 @@ fun ApplicationItemPreview(){
         language = "English",
         currentApplication = listOf("application1", "application2"),
         notify = listOf("notification1", "notification2"),
-        reported = listOf("report1", "report2")
+        reported = listOf("report1", "report2"),
     )
 
     ApplicationItem(applicationData, caData)
