@@ -39,22 +39,6 @@ fun HomePage() {
             name = "RTI Rules 2012",
             information = "The Right to Information Rules, 2012 lays down the procedure for seeking information under the Right to Information Act, 2005."
         ),
-        RTIAct(
-            name = "RTI Amendment Act 2019",
-            information = "The RTI Amendment Act, 2019 amended the Right to Information Act, 2005 to change the terms and conditions of service of the Chief Information Commissioner and Information Commissioners."
-        ),
-        RTIAct(
-            name = "RTI Rules 2012",
-            information = "The Right to Information Rules, 2012 lays down the procedure for seeking information under the Right to Information Act, 2005."
-        ),
-        RTIAct(
-            name = "RTI Amendment Act 2019",
-            information = "The RTI Amendment Act, 2019 amended the Right to Information Act, 2005 to change the terms and conditions of service of the Chief Information Commissioner and Information Commissioners."
-        ),
-        RTIAct(
-            name = "RTI Rules 2012",
-            information = "The Right to Information Rules, 2012 lays down the procedure for seeking information under the Right to Information Act, 2005."
-        )
     )
 
     // State to track expanded status of each item
