@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 data class RTIAct(
     val name: String,
@@ -37,6 +38,22 @@ fun HomePage() {
         RTIAct(
             name = "RTI Rules 2012",
             information = "The Right to Information Rules, 2012 lays down the procedure for seeking information under the Right to Information Act, 2005."
+        ),
+        RTIAct(
+            name = "RTI Amendment Act 2019",
+            information = "The RTI Amendment Act, 2019 amended the Right to Information Act, 2005 to change the terms and conditions of service of the Chief Information Commissioner and Information Commissioners."
+        ),
+        RTIAct(
+            name = "RTI Rules 2012",
+            information = "The Right to Information Rules, 2012 lays down the procedure for seeking information under the Right to Information Act, 2005."
+        ),
+        RTIAct(
+            name = "RTI Amendment Act 2019",
+            information = "The RTI Amendment Act, 2019 amended the Right to Information Act, 2005 to change the terms and conditions of service of the Chief Information Commissioner and Information Commissioners."
+        ),
+        RTIAct(
+            name = "RTI Rules 2012",
+            information = "The Right to Information Rules, 2012 lays down the procedure for seeking information under the Right to Information Act, 2005."
         )
     )
 
@@ -47,8 +64,8 @@ fun HomePage() {
         item {
             Text(
                 text = "RTI Acts",
-                style = TextStyle(fontWeight = FontWeight.Bold),
-                modifier = Modifier.padding(start = 16.dp, bottom = 8.dp)
+                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 24.sp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
         }
 
